@@ -1,0 +1,138 @@
+.card {
+  grid-column: span 4;
+  background: #fff;
+  border-radius: 20px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.card__image__wrapper {
+  position: relative;
+  width: 100%;
+  height: 300px;
+  overflow: hidden;
+}
+
+.card__image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.card:hover .card__image {
+  transform: scale(1.05);
+}
+
+.card__favorite {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.9);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  z-index: 10;
+}
+
+.card__favorite:hover {
+  background: rgba(198, 255, 0, 1);
+  transform: scale(1.1);
+}
+
+.card__plus {
+  font-size: 24px;
+  font-weight: 300;
+  color: #000;
+  line-height: 1;
+}
+
+.card__content {
+  padding: 20px;
+}
+
+.card__title {
+  font-size: 24px;
+  font-weight: 600;
+  color: #000;
+  margin-bottom: 15px;
+}
+
+.card__info {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.card__duration,
+.card__time {
+  font-size: 16px;
+  color: #666;
+}
+
+.card__difficulty {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 5px;
+}
+
+.card__difficulty__label {
+  font-size: 16px;
+  color: #666;
+  min-width: 80px;
+}
+
+.card__difficulty__bar {
+  display: flex;
+  gap: 5px;
+}
+
+.difficulty__item {
+  width: 20px;
+  height: 4px;
+  background: #e0e0e0;
+  border-radius: 2px;
+  transition: background 0.3s ease;
+}
+
+.difficulty__item__active {
+  background: #4caf50;
+}
+
+/* Адаптивность */
+@media (max-width: 1024px) {
+  .card {
+    grid-column: span 6;
+  }
+}
+
+@media (max-width: 768px) {
+  .card {
+    grid-column: span 12;
+  }
+
+  .card__image__wrapper {
+    height: 250px;
+  }
+
+  .card__title {
+    font-size: 20px;
+  }
+}

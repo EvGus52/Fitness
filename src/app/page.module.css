@@ -1,0 +1,26 @@
+.scrollButtonWrapper {
+    display: flex;
+    justify-content: center;
+}
+
+.scrollButton {
+    display: inline-block;
+    padding: 16px 26px;
+    margin-bottom: 80px;
+    border-radius: 46px;
+    background: rgba(188, 236, 48, 1);
+    color: rgba(0, 0, 0, 1);
+    font-size: 18px;
+    font-weight: 400;
+    transition: all 0.3s ease;
+}
+
+.scrollButton:hover {
+    background: rgba(198, 255, 0, 1);
+}
+
+.scrollButton .arrow {
+    vertical-align: text-top;
+    line-height: 1;
+    display: inline-block;
+}
