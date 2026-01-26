@@ -1,5 +1,7 @@
+
 'use client';
 
+import Link from 'next/link';
 import styles from './courseCard.module.css';
 import Image from 'next/image';
 import { Course } from '@/components/Centerblock/Centerblock';
@@ -10,14 +12,16 @@ interface CourseCardProps {
 }
 
 export function CourseCard({ course, onToggleFavorite }: CourseCardProps) {
-    const handleClick = () => {
+    const handleFavoriteClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault();
+        e.stopPropagation();
         if (onToggleFavorite) {
             onToggleFavorite(course.id);
         }
     };
 
     return (
-        <div className={styles.card} onClick={handleClick}>
+        <Link href={`/courses?id=${course.id}`} className={styles.card}>
             <div className={styles.card__image__wrapper}>
                 <Image
                     src={course.image}
@@ -26,7 +30,11 @@ export function CourseCard({ course, onToggleFavorite }: CourseCardProps) {
                     className={styles.card__image}
                     sizes="(max-width: 768px) 100vw, 33vw"
                 />
-                <button className={styles.card__favorite} aria-label="Добавить в избранное">
+                <button
+                    className={styles.card__favorite}
+                    onClick={handleFavoriteClick}
+                    aria-label="Добавить в избранное"
+                >
                     <span className={styles.card__plus}>+</span>
                 </button>
             </div>
@@ -41,19 +49,27 @@ export function CourseCard({ course, onToggleFavorite }: CourseCardProps) {
                         {course.dailyDurationInMinutes.to} мин/день
                     </span>
                     <div className={styles.card__difficulty}>
-                        <span className={styles.card__difficulty__label}>Сложность</span>
-                        <div className={styles.card__difficulty__bar}>
-                            {[...Array(5)].map((_, i) => (
-                                <div
-                                    key={i}
-                                    className={`${styles.difficulty__item} ${i < course.difficulty ? styles.difficulty__item__active : ''
+                        <div className={styles.difficulty__indicator}>
+                            <div className={styles.difficulty__bars}>
+                                {[...Array(5)].map((_, i) => (
+                                    <div
+                                        key={i}
+                                        className={`${styles.difficulty__bar} ${
+                                            i < course.difficulty
+                                                ? styles.difficulty__bar__active
+                                                : ''
                                         }`}
-                                />
-                            ))}
+                                        style={{
+                                            height: `${(i + 1) * 20}%`,
+                                        }}
+                                    />
+                                ))}
+                            </div>
+                            <span className={styles.difficulty__label}>Сложность</span>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </Link>
     );
 }

@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Roboto } from 'next/font/google';
 import './globals.css';
+import AuthModalProviderWrapper from '@/components/AuthModal/AuthModalProvider';
 
 const roboto = Roboto({
   variable: '--font-roboto',
@@ -19,7 +20,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${roboto.variable}`}>{children}</body>
+      <body className={`${roboto.variable}`}>
+        <AuthModalProviderWrapper>{children}</AuthModalProviderWrapper>
+      </body>
     </html>
   );
 }

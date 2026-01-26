@@ -6,6 +6,9 @@
   cursor: pointer;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  text-decoration: none;
+  display: block;
+  color: inherit;
 }
 
 .card:hover {
@@ -87,33 +90,42 @@
 }
 
 .card__difficulty {
-  display: flex;
-  align-items: center;
-  gap: 10px;
   margin-top: 5px;
 }
 
-.card__difficulty__label {
-  font-size: 16px;
-  color: #666;
-  min-width: 80px;
+.difficulty__indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 16px;
+  background: #fff;
+  border: 1px solid #333;
+  border-radius: 20px;
 }
 
-.card__difficulty__bar {
+.difficulty__bars {
   display: flex;
-  gap: 5px;
+  align-items: flex-end;
+  gap: 3px;
+  height: 20px;
 }
 
-.difficulty__item {
-  width: 20px;
-  height: 4px;
-  background: #e0e0e0;
+.difficulty__bar {
+  width: 4px;
+  min-height: 4px;
+  background: #d0d0d0;
   border-radius: 2px;
   transition: background 0.3s ease;
 }
 
-.difficulty__item__active {
-  background: #4caf50;
+.difficulty__bar__active {
+  background: #00bcd4; /* cyan/blue цвет */
+}
+
+.difficulty__label {
+  font-size: 16px;
+  color: #333;
+  font-weight: 400;
 }
 
 /* Адаптивность */
