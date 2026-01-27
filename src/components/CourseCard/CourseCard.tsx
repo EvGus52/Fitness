@@ -1,22 +1,76 @@
-
 'use client';
 
 import Link from 'next/link';
 import styles from './courseCard.module.css';
 import Image from 'next/image';
-import { Course } from '@/components/Centerblock/Centerblock';
+import { Course } from '@/sharedTypes/sharedTypes';
+import { useUser } from '@/contexts/UserContext';
+import { useAuthModal } from '@/contexts/AuthModalContext';
+import { addUserCourse, deleteUserCourse } from '@/services/userCourses/userCoursesApi';
+import { toast } from 'react-toastify';
+import { AxiosError } from 'axios';
 
 interface CourseCardProps {
     course: Course;
-    onToggleFavorite?: (courseId: string) => void;
+    isAdded?: boolean;
+    onCourseAdded?: () => void;
+    onCourseRemoved?: () => void;
 }
 
-export function CourseCard({ course, onToggleFavorite }: CourseCardProps) {
-    const handleFavoriteClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+export function CourseCard({
+    course,
+    isAdded = false,
+    onCourseAdded,
+    onCourseRemoved,
+}: CourseCardProps) {
+    const { user } = useUser();
+    const { openSignin } = useAuthModal();
+
+    const handleAddClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         e.stopPropagation();
-        if (onToggleFavorite) {
-            onToggleFavorite(course.id);
+
+        if (!user) {
+            openSignin();
+            return;
+        }
+
+        if (isAdded) {
+            // Удаление курса
+            try {
+                await deleteUserCourse(course.id);
+                toast.success('Курс успешно удален!');
+                if (onCourseRemoved) {
+                    onCourseRemoved();
+                }
+            } catch (error) {
+                if (error instanceof AxiosError) {
+                    if (error.response) {
+                        const errorData = error.response.data as { message: string };
+                        toast.error(errorData.message || 'Ошибка при удалении курса');
+                    } else {
+                        toast.error('Ошибка при удалении курса');
+                    }
+                }
+            }
+        } else {
+            // Добавление курса
+            try {
+                await addUserCourse(course.id);
+                toast.success('Курс успешно добавлен!');
+                if (onCourseAdded) {
+                    onCourseAdded();
+                }
+            } catch (error) {
+                if (error instanceof AxiosError) {
+                    if (error.response) {
+                        const errorData = error.response.data as { message: string };
+                        toast.error(errorData.message || 'Ошибка при добавлении курса');
+                    } else {
+                        toast.error('Ошибка при добавлении курса');
+                    }
+                }
+            }
         }
     };
 
@@ -32,22 +86,44 @@ export function CourseCard({ course, onToggleFavorite }: CourseCardProps) {
                 />
                 <button
                     className={styles.card__favorite}
-                    onClick={handleFavoriteClick}
-                    aria-label="Добавить в избранное"
+                    onClick={handleAddClick}
+                    aria-label={isAdded ? 'Удалить курс' : 'Добавить курс'}
                 >
-                    <span className={styles.card__plus}>+</span>
+                    <Image
+                        src={isAdded ? '/icon/min.svg' : '/icon/plus.svg'}
+                        alt={isAdded ? 'Удалить курс' : 'Добавить курс'}
+                        width={27}
+                        height={27}
+                        className={styles.card__icon}
+                    />
                 </button>
             </div>
             <div className={styles.card__content}>
                 <h3 className={styles.card__title}>{course.nameRU}</h3>
                 <div className={styles.card__info}>
-                    <span className={styles.card__duration}>
-                        {course.durationInDays} дней
-                    </span>
-                    <span className={styles.card__time}>
-                        {course.dailyDurationInMinutes.from}-
-                        {course.dailyDurationInMinutes.to} мин/день
-                    </span>
+                    <div className={styles.card__duration}>
+                        <Image
+                            src="/icon/days.svg"
+                            alt="Дни"
+                            width={16}
+                            height={16}
+                            className={styles.card__duration__icon}
+                        />
+                        <span>{course.durationInDays} дней</span>
+                    </div>
+                    <div className={styles.card__time}>
+                        <Image
+                            src="/icon/time.svg"
+                            alt="Время"
+                            width={16}
+                            height={16}
+                            className={styles.card__time__icon}
+                        />
+                        <span>
+                            {course.dailyDurationInMinutes.from}-
+                            {course.dailyDurationInMinutes.to} мин/день
+                        </span>
+                    </div>
                     <div className={styles.card__difficulty}>
                         <div className={styles.difficulty__indicator}>
                             <div className={styles.difficulty__bars}>

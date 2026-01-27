@@ -1,7 +1,12 @@
 import type { Metadata } from 'next';
 import { Roboto } from 'next/font/google';
 import './globals.css';
-import AuthModalProviderWrapper from '@/components/AuthModal/AuthModalProvider';
+import 'react-toastify/dist/ReactToastify.css';
+import AuthModalProviderWrapper from '@/components/Modals/AuthModal/AuthModalProvider';
+import ToastProvider from '@/components/ToastProvider/ToastProvider';
+import { UserProvider } from '@/contexts/UserContext';
+import UserMenuProviderWrapper from '@/components/Modals/UserMenuModal/UserMenuProvider';
+import ConfirmLogoutProviderWrapper from '@/components/Modals/ConfirmLogoutModal/ConfirmLogoutProvider';
 
 const roboto = Roboto({
   variable: '--font-roboto',
@@ -21,7 +26,15 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${roboto.variable}`}>
-        <AuthModalProviderWrapper>{children}</AuthModalProviderWrapper>
+        <UserProvider>
+          <ConfirmLogoutProviderWrapper>
+            <UserMenuProviderWrapper>
+              <AuthModalProviderWrapper>
+                <ToastProvider>{children}</ToastProvider>
+              </AuthModalProviderWrapper>
+            </UserMenuProviderWrapper>
+          </ConfirmLogoutProviderWrapper>
+        </UserProvider>
       </body>
     </html>
   );

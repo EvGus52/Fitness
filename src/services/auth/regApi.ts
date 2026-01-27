@@ -1,24 +1,29 @@
 import { BASE_URL } from '../constants';
-import axios, { AxiosResponse } from 'axios';
+import axios from 'axios';
+import { createUserProp } from '@/sharedTypes/sharedTypes';
 
-type regUserProps = {
-  email: string;
-  password: string;
-  username: string;
+type RegisterResponse = {
+  message: string;
 };
 
-type regUserReturn = {
-  username: string;
-  email: string;
-  _id: number;
-};
-
+/**
+ * Регистрация нового пользователя
+ * POST /auth/register
+ * @param data - email и password
+ * @returns Promise<RegisterResponse> - объект с сообщением об успехе
+ */
 export const regUser = (
-  data: regUserProps,
-): Promise<AxiosResponse<regUserReturn>> => {
-  return axios.post<regUserReturn>(BASE_URL + '/user/signup/', data, {
-    headers: {
-      'content-type': 'application/json',
-    },
-  });
+  data: createUserProp,
+): Promise<RegisterResponse> => {
+  return axios
+    .post<RegisterResponse>(
+      BASE_URL + '/auth/register',
+      data,
+      {
+        headers: {
+          'Content-Type': '',
+        },
+      }
+    )
+    .then((res) => res.data);
 };

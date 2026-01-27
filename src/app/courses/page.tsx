@@ -8,7 +8,7 @@ import AboutCourse from '@/components/AboutCourse/AboutCourse';
 import CourseEnrollment from '@/components/CourseEnrollment/CourseEnrollment';
 import { getCourses } from '@/services/courses/coursesApi';
 import { CourseFromAPI } from '@/sharedTypes/sharedTypes';
-import { Course } from '@/components/Centerblock/Centerblock';
+import { Course } from '@/sharedTypes/sharedTypes';
 
 function CoursesContent() {
     const searchParams = useSearchParams();

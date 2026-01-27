@@ -1,0 +1,12 @@
+.scrollButtonWrapper {
+    display: flex;
+    justify-content: center;
+}
+
+/* Кнопка использует глобальный класс .btn */
+
+.arrow {
+    vertical-align: text-top;
+    line-height: 1;
+    display: inline-block;
+}

@@ -2,7 +2,7 @@
 
 import styles from './aboutCourse.module.css';
 import Image from 'next/image';
-import { Course } from '@/components/Centerblock/Centerblock';
+import { Course } from '@/sharedTypes/sharedTypes';
 
 interface AboutCourseProps {
   course: Course & {
@@ -16,7 +16,7 @@ export default function AboutCourse({ course }: AboutCourseProps) {
     <div className={styles.aboutCourse}>
       {/* Верхняя секция - изображение skill card */}
       <div className={styles.topSection}>
-        <div className={styles.topContainer}>
+        <div className={`container ${styles.topContainer}`}>
           <Image
             src={course.image || `/skill card 1.png`}
             alt={course.nameRU}
@@ -29,7 +29,7 @@ export default function AboutCourse({ course }: AboutCourseProps) {
 
       {/* Нижняя секция - черный фон */}
       <div className={styles.bottomSection}>
-        <div className={styles.container}>
+        <div className="container">
           {/* Блок "Подойдет для вас, если:" */}
           {course.suitableFor && course.suitableFor.length > 0 && (
             <div className={styles.suitableFor}>

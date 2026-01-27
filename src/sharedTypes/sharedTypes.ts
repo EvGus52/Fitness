@@ -17,15 +17,65 @@ export type CourseFromAPI = {
   __v: number;
 };
 
-// Тип курса для использования в приложении
-// Может быть расширен полями для отображения (например, image)
-export type CourseType = CourseFromAPI & {
-  id?: string; // Для совместимости с существующим кодом (может быть равен _id)
-  image?: string; // Путь к изображению (добавляется на клиенте)
+// Тип курса для компонентов (трансформированные данные из CourseFromAPI)
+export type Course = {
+  id: string;
+  nameRU: string;
+  durationInDays: number;
+  dailyDurationInMinutes: {
+    from: number;
+    to: number;
+  };
+  difficulty: number; // 1-5
+  image: string; // путь к изображению
 };
 
 // Тип для создания пользователя
 export type createUserProp = {
   email: string;
   password: string;
+};
+
+// Тип тренировки
+export type Workout = {
+  _id: string;
+  name: string;
+  video: string;
+  exercises: Exercise[];
+};
+
+// Тип упражнения
+export type Exercise = {
+  name: string;
+  quantity: number;
+  _id: string;
+};
+
+// Тип прогресса по курсу
+export type CourseProgress = {
+  courseId: string;
+  courseCompleted: boolean;
+  workoutsProgress: WorkoutProgress[];
+};
+
+// Тип прогресса по тренировке
+export type WorkoutProgress = {
+  workoutId: string;
+  workoutCompleted: boolean;
+  progressData: number[];
+};
+
+// Тип ответа для добавления курса
+export type AddCourseResponse = {
+  message: string;
+};
+
+// Тип ответа для удаления курса
+export type DeleteCourseResponse = {
+  message: string;
+};
+
+// Тип ответа для сброса прогресса
+export type ResetProgressResponse = {
+  message: string;
 };

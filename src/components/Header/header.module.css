@@ -1,13 +1,10 @@
 .header {
     width: 100%;
     background-color: #fff;
-    padding: 20px 0;
+    padding: 60px 0;
 }
 
 .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
@@ -21,7 +18,7 @@
 
 .logo {
     display: inline-block;
-    text-decoration: none;
+    border: none;
 }
 
 .logo__image {
@@ -35,43 +32,35 @@
     opacity: 0.5;
 }
 
-.login__btn {
-    display: inline-block;
-    padding: 16px 26px;
-    border-radius: 46px;
-    background: rgba(188, 236, 48, 1);
-    color: rgba(0, 0, 0, 1);
-    font-size: 18px;
-    transition: all 0.3s ease;
+
+.user__info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
 }
 
-.login__btn:hover {
-    background: rgba(198, 255, 0, 1);
+.user__icon {
+    object-fit: contain;
+    margin-right: 8px;
+
 }
 
-/* Адаптивность для мобильных устройств */
-@media (max-width: 768px) {
-    .header {
-        padding: 15px 0;
-    }
+.user__name {
+    font-size: 24px;
+}
 
-    .container {
-        flex-direction: column;
-        gap: 15px;
-        align-items: flex-start;
-    }
+.user__checkmark__button {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
 
-    .login__btn {
-        align-self: flex-end;
-        padding: 10px 25px;
-        font-size: 14px;
-    }
+.user__checkmark__button:hover {
+    transform: scale(1.1);
+}
 
-    .logo__image {
-        max-width: 150px;
-    }
-
-    .tagline {
-        font-size: 12px;
-    }
+.user__checkmark {
+    object-fit: contain;
 }

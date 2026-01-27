@@ -1,4 +1,4 @@
-import { Course } from '@/components/Centerblock/Centerblock';
+import { Course } from '@/sharedTypes/sharedTypes';
 
 // Временные моковые данные (позже будут из API)
 export const mockCourses: Course[] = [

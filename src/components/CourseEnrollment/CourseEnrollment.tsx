@@ -9,7 +9,7 @@ export default function CourseEnrollment() {
 
   return (
     <div className={styles.enrollment}>
-      <div className={styles.container}>
+      <div className="container">
         <div className={styles.content}>
           <div className={styles.textBlock}>
             <h2 className={styles.title}>Начните путь к новому телу</h2>
@@ -28,7 +28,7 @@ export default function CourseEnrollment() {
                 помогают противостоять стрессам
               </li>
             </ul>
-            <button onClick={openSignin} className={styles.enrollButton}>
+            <button onClick={openSignin} className="btn btn-full">
               Войдите, чтобы добавить курс
             </button>
           </div>

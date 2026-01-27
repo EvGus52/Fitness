@@ -2,17 +2,19 @@
 
 import Header from '@/components/Header/Header';
 import UserProfile from '@/components/UserProfile/UserProfile';
+import { useConfirmLogout } from '@/contexts/ConfirmLogoutContext';
 
 export default function ProfilePage() {
-    const handleLogout = () => {
-        // Здесь будет логика выхода
-        console.log('Logout');
-    };
+  const { openConfirm } = useConfirmLogout();
 
-    return (
-        <>
-            <Header />
-            <UserProfile onLogout={handleLogout} />
-        </>
-    );
+  const handleLogout = () => {
+    openConfirm();
+  };
+
+  return (
+    <>
+      <Header />
+      <UserProfile onLogout={handleLogout} />
+    </>
+  );
 }

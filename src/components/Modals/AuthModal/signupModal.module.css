@@ -1,0 +1,37 @@
+.modal__logo {
+  margin-bottom: 38px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logo__image {
+  object-fit: contain;
+}
+
+.modal__input {
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid #d0cece;
+  padding: 8px 0;
+  margin-bottom: 30px;
+  font-size: 18px;
+  line-height: 24px;
+  color: #000;
+  background-color: transparent;
+  outline: none;
+}
+
+.modal__input::placeholder {
+  color: #d0cece;
+}
+
+.modal__input:focus {
+  border-bottom-color: #000;
+}
+
+.modal__input.login {
+  margin-bottom: 30px;
+}
+
+/* Кнопки используют глобальные классы .btn и .btn-secondary */

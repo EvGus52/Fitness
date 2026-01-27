@@ -3,35 +3,26 @@
 import styles from './centerblock.module.css';
 import Image from 'next/image';
 import { CourseCard } from '@/components/CourseCard/CourseCard';
-
-// Тип данных программы из API
-export interface Course {
-  id: string;
-  nameRU: string;
-  durationInDays: number;
-  dailyDurationInMinutes: {
-    from: number;
-    to: number;
-  };
-  difficulty: number; // например, 1-5
-  image: string; // путь к изображению
-}
+import { Course } from '@/sharedTypes/sharedTypes';
 
 interface CenterblockProps {
   courses: Course[];
-  onToggleFavorite?: (courseId: string) => void;
+  selectedCourses?: string[];
+  onCourseAdded?: () => void;
+  onCourseRemoved?: () => void;
 }
 
 export default function Centerblock({
   courses,
-  onToggleFavorite,
+  selectedCourses = [],
+  onCourseAdded,
+  onCourseRemoved,
 }: CenterblockProps) {
   return (
-    <div id="centerblock" className={styles.centerblock}>
+    <div id="centerblock" className={`container ${styles.centerblock}`}>
       <div className={styles.titleBlock}>
         <h1 className={styles.title}>
-          <span>Начните заниматься спортом</span>
-          <span>и улучшите качество жизни</span>
+          Начните заниматься спортом и улучшите качество жизни
         </h1>
         <div className={styles.bubble}>
           <Image
@@ -49,7 +40,9 @@ export default function Centerblock({
           <CourseCard
             key={course.id}
             course={course}
-            onToggleFavorite={onToggleFavorite}
+            isAdded={selectedCourses.includes(course.id)}
+            onCourseAdded={onCourseAdded}
+            onCourseRemoved={onCourseRemoved}
           />
         ))}
       </div>

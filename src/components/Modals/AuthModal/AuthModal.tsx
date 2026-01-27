@@ -30,8 +30,8 @@ export default function AuthModal() {
   };
 
   return (
-    <div className={styles.wrapper} onClick={handleOverlayClick}>
-      <div className={styles.overlay} />
+    <div className={styles.wrapper}>
+      <div className={styles.overlay} onClick={handleOverlayClick} />
       <div className={styles.modal__block} onClick={(e) => e.stopPropagation()}>
         <div className={styles.modal__form}>
           {modalType === 'signin' && <SigninModal />}

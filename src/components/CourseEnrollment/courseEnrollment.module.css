@@ -6,11 +6,6 @@
   overflow: hidden;
 }
 
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 20px;
-}
 
 .content {
   display: flex;
@@ -62,25 +57,7 @@
   color: #000;
 }
 
-.enrollButton {
-  display: inline-block;
-  width: 100%;
-  padding: 16px 26px;
-  border-radius: 46px;
-  background: rgba(188, 236, 48, 1);
-  color: rgba(0, 0, 0, 1);
-  font-size: 18px;
-  font-weight: 500;
-  text-decoration: none;
-  text-align: center;
-  transition: all 0.3s ease;
-  cursor: pointer;
-  border: none;
-}
-
-.enrollButton:hover {
-  background: rgba(198, 255, 0, 1);
-}
+/* Кнопка использует глобальный класс .btn */
 
 .imageBlock {
   flex: 1;
@@ -120,53 +97,4 @@
   height: 100%;
   object-fit: contain;
   position: relative;
-}
-
-/* Адаптивность */
-@media (max-width: 1024px) {
-  .content {
-    flex-direction: column;
-    gap: 30px;
-  }
-
-  .textBlock {
-    max-width: 100%;
-    padding: 40px 30px;
-  }
-
-  .title {
-    font-size: 36px;
-  }
-
-  .imageBlock {
-    height: 400px;
-  }
-}
-
-@media (max-width: 768px) {
-  .enrollment {
-    padding: 60px 0;
-  }
-
-  .textBlock {
-    padding: 30px 20px;
-  }
-
-  .title {
-    font-size: 28px;
-    margin-bottom: 30px;
-  }
-
-  .benefitItem {
-    font-size: 16px;
-  }
-
-  .enrollButton {
-    font-size: 16px;
-    padding: 14px 24px;
-  }
-
-  .imageBlock {
-    height: 300px;
-  }
 }

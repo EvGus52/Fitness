@@ -5,11 +5,6 @@
   min-height: calc(100vh - 200px);
 }
 
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 20px;
-}
 
 .profileCard {
   background-color: #fff;
@@ -61,54 +56,11 @@
   line-height: 1.4;
 }
 
-.logoutButton {
-  align-self: flex-start;
-  padding: 12px 30px;
-  border-radius: 50px;
-  background-color: #fff;
-  border: 1px solid #000;
-  color: #000;
-  font-size: 16px;
-  font-weight: 400;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  font-family: var(--font-roboto), Arial;
-}
+/* Кнопка использует глобальный класс .btn-secondary */
 
-.logoutButton:hover {
-  background-color: #f5f5f5;
-  border-color: #333;
-}
-
-.logoutButton:active {
-  transform: scale(0.98);
-}
-
-/* Адаптивность */
-@media (max-width: 768px) {
-  .profile {
-    padding: 40px 0;
-  }
-
-  .profileCard {
-    flex-direction: column;
-    text-align: center;
-    padding: 30px 20px;
-  }
-
-  .userInfo {
-    align-items: center;
-  }
-
-  .userName {
-    font-size: 28px;
-  }
-
-  .userLogin {
-    font-size: 16px;
-  }
-
-  .logoutButton {
-    align-self: center;
-  }
+.courses__grid {
+  margin-top: 40px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
 }

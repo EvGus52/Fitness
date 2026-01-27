@@ -6,6 +6,10 @@
 
 body {
   font-family: var(--font-roboto), Arial;
+  color: rgba(0, 0, 0, 1);
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 110%;
 }
 h1,
 h2,
@@ -27,6 +31,92 @@ a {
   text-decoration: none;
 }
 
+/* Общий контейнер для центрирования контента */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Основная кнопка */
 .btn {
+  border-radius: 46px;
+  font-size: 18px;
+  transition: all 0.3s ease;
+  padding: 16px 26px;
+  border: none;
+  background: rgba(188, 236, 48, 1);
+  color: rgba(0, 0, 0, 1);
   cursor: pointer;
+  line-height: normal;
+}
+
+.btn:hover:not(:disabled) {
+  background: rgba(198, 255, 0, 1);
+  color: rgba(0, 0, 0, 1);
+  transform: scale(1.05);
+}
+
+.btn:active:not(:disabled) {
+  background: rgba(0, 0, 0, 1);
+  color: rgba(255, 255, 255, 1);
+}
+
+.btn:disabled {
+  background: rgba(247, 247, 247, 1);
+  color: rgba(153, 153, 153, 1);
+  cursor: not-allowed;
+}
+
+/* Вторичная кнопка */
+.btn-secondary {
+  border-radius: 46px;
+  font-size: 18px;
+  transition: all 0.3s ease;
+  padding: 16px 26px;
+  border: 1px solid rgba(0, 0, 0, 1);
+  background: transparent;
+  color: rgba(0, 0, 0, 1);
+  cursor: pointer;
+  line-height: normal;
+}
+
+.btn-secondary:hover:not(:disabled) {
+  border: 1px solid rgba(0, 0, 0, 1);
+  color: rgba(0, 0, 0, 1);
+  background: rgba(247, 247, 247, 1);
+  transform: scale(1.05);
+}
+
+.btn-secondary:active:not(:disabled) {
+  border: 1px solid rgba(0, 0, 0, 1);
+  color: rgba(0, 0, 0, 1);
+  background: rgba(233, 236, 237, 1);
+}
+
+.btn-secondary:disabled {
+  border: 1px solid rgba(153, 153, 153, 1);
+  color: rgba(153, 153, 153, 1);
+  cursor: not-allowed;
+}
+
+/* Модификаторы для кнопок */
+.btn-full {
+  width: 100%;
+}
+
+.btn-padding-sm {
+  padding: 12px 0;
+}
+
+.btn-mb-20 {
+  margin-bottom: 20px;
+}
+
+.btn-mt-10 {
+  margin-top: 10px;
+}
+
+.btn-mb-80 {
+  margin-bottom: 80px;
 }

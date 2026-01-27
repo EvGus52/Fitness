@@ -6,14 +6,16 @@ import Image from 'next/image';
 import { useAuthModal } from '@/contexts/AuthModalContext';
 import styles from './signupModal.module.css';
 
-// TODO: Раскомментировать когда будут готовы API
-// import { regUser } from '@/services/auth/regApi';
-// import { AxiosError } from 'axios';
-// import { toast } from 'react-toastify';
+import { regUser } from '@/services/auth/regApi';
+import { loginUser, saveToken } from '@/services/auth/authApi';
+import { AxiosError } from 'axios';
+import { toast } from 'react-toastify';
+import { useUser } from '@/contexts/UserContext';
 
 export default function SignupModal() {
   const router = useRouter();
   const { openSignin, closeModal } = useAuthModal();
+  const { refreshUser } = useUser();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [repeatPassword, setRepeatPassword] = useState('');
@@ -35,52 +37,49 @@ export default function SignupModal() {
     e.preventDefault();
 
     if (!email.trim() || !password.trim() || !repeatPassword.trim()) {
-      // toast.error('Заполните все поля!');
-      console.log('Заполните все поля!');
+      toast.error('Заполните все поля!');
       return;
     }
 
     if (password !== repeatPassword) {
-      // toast.error('Пароли не совпадают!');
-      console.log('Пароли не совпадают!');
+      toast.error('Пароли не совпадают!');
       return;
     }
 
     setIsLoading(true);
 
-    // TODO: Раскомментировать когда будут готовы API
-    // regUser({ email, password })
-    //   .then((res) => {
-    //     toast.success('Поздравляем! Вы успешно зарегистрировались!');
-    //     setTimeout(() => {
-    //       closeModal();
-    //       openSignin();
-    //     }, 1000);
-    //   })
-    //   .catch((error) => {
-    //     if (error instanceof AxiosError) {
-    //       if (error.response) {
-    //         toast.error(
-    //           error.response.data.message || 'Ошибка при регистрации',
-    //         );
-    //       } else if (error.request) {
-    //         toast.error('Пропал интернет');
-    //       } else {
-    //         toast.error('Неизвестная ошибка, попробуйте позже');
-    //       }
-    //     }
-    //   })
-    //   .finally(() => {
-    //     setIsLoading(false);
-    //   });
-
-    // Временная заглушка
-    setTimeout(() => {
-      console.log('Signup:', { email, password });
-      setIsLoading(false);
-      closeModal();
-      openSignin();
-    }, 1000);
+    regUser({ email, password })
+      .then(() => {
+        // После успешной регистрации автоматически авторизуем пользователя
+        return loginUser({ email, password });
+      })
+      .then((loginRes) => {
+        saveToken(loginRes.token);
+        // Небольшая задержка для гарантии сохранения токена
+        return new Promise((resolve) => setTimeout(resolve, 100)).then(() => refreshUser());
+      })
+      .then(() => {
+        toast.success('Регистрация прошла успешно! Вы авторизованы.');
+        closeModal();
+        router.push('/main');
+      })
+      .catch((error) => {
+        if (error instanceof AxiosError) {
+          if (error.response) {
+            const errorData = error.response.data as { message: string };
+            toast.error(errorData.message || 'Ошибка при регистрации');
+          } else if (error.request) {
+            toast.error('Пропал интернет');
+          } else {
+            toast.error('Неизвестная ошибка, попробуйте позже');
+          }
+        } else {
+          toast.error('Ошибка при регистрации');
+        }
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   };
 
   return (
@@ -100,7 +99,7 @@ export default function SignupModal() {
       </button>
       <input
         className={`${styles.modal__input} ${styles.login}`}
-        type="text"
+        type="email"
         name="email"
         placeholder="Эл. почта"
         onChange={onChangeEmail}
@@ -125,13 +124,13 @@ export default function SignupModal() {
       <button
         onClick={onSubmit}
         disabled={isLoading}
-        className={styles.modal__btnSignupEnt}
+        className="btn btn-full btn-padding-sm btn-mb-20"
       >
         {isLoading ? 'Загрузка...' : 'Зарегистрироваться'}
       </button>
       <button
         onClick={openSignin}
-        className={styles.modal__btnSignin}
+        className="btn-secondary btn-full btn-padding-sm"
       >
         Войти
       </button>
