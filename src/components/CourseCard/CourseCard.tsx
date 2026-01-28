@@ -130,11 +130,10 @@ export function CourseCard({
                                 {[...Array(5)].map((_, i) => (
                                     <div
                                         key={i}
-                                        className={`${styles.difficulty__bar} ${
-                                            i < course.difficulty
+                                        className={`${styles.difficulty__bar} ${i < course.difficulty
                                                 ? styles.difficulty__bar__active
                                                 : ''
-                                        }`}
+                                            }`}
                                         style={{
                                             height: `${(i + 1) * 20}%`,
                                         }}

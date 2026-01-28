@@ -19,7 +19,7 @@ export default function Centerblock({
   onCourseRemoved,
 }: CenterblockProps) {
   return (
-    <div id="centerblock" className={`container ${styles.centerblock}`}>
+    <div id="centerblock" className={`center ${styles.centerblock}`}>
       <div className={styles.titleBlock}>
         <h1 className={styles.title}>
           Начните заниматься спортом и улучшите качество жизни

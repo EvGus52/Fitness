@@ -7,8 +7,8 @@ import { useConfirmLogout } from '@/contexts/ConfirmLogoutContext';
 import { useUser } from '@/contexts/UserContext';
 import styles from './userMenuModal.module.css';
 
-const MODAL_WIDTH = 360;
-const GAP = 8;
+const MODAL_WIDTH = 266;
+const GAP = 50;
 
 export default function UserMenuModal() {
   const { isOpen, closeMenu, anchorRect } = useUserMenu();

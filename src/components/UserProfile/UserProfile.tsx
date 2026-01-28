@@ -136,7 +136,7 @@ export default function UserProfile({ onLogout }: UserProfileProps) {
     if (isLoading) {
         return (
             <div className={styles.profile}>
-                <div className="container">
+                <div className="center">
                     <div className={styles.profileCard}>
                         <p>Загрузка...</p>
                     </div>
@@ -147,7 +147,7 @@ export default function UserProfile({ onLogout }: UserProfileProps) {
 
     return (
         <div className={styles.profile}>
-            <div className="container">
+            <div className="center">
                 <div className={styles.profileCard}>
                     <div className={styles.avatarWrapper}>
                         <Image

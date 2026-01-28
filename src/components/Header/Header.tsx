@@ -1,5 +1,6 @@
 'use client';
 
+import { useRef } from 'react';
 import styles from './header.module.css';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -11,18 +12,20 @@ export default function Header() {
   const { openSignin } = useAuthModal();
   const { user, isLoading } = useUser();
   const { openMenu } = useUserMenu();
+  const triggerButtonRef = useRef<HTMLButtonElement>(null);
 
   // Извлекаем имя из email (часть до @)
   const userName = user?.email ? user.email.split('@')[0] : '';
 
   const handleCheckmarkClick = (e: React.MouseEvent) => {
     e.stopPropagation();
-    openMenu();
+    const rect = triggerButtonRef.current?.getBoundingClientRect();
+    openMenu(rect ? { top: rect.top, left: rect.left, right: rect.right, bottom: rect.bottom } : undefined);
   };
 
   return (
     <header id="header" className={styles.header}>
-      <div className={`container ${styles.container}`}>
+      <div className={`center ${styles.container}`}>
         <div className={styles.logo__wrapper}>
           <Link href="/" className={styles.logo}>
             <Image
@@ -49,6 +52,7 @@ export default function Header() {
                 />
                 <span className={styles.user__name}>{userName}</span>
                 <button
+                  ref={triggerButtonRef}
                   onClick={handleCheckmarkClick}
                   className={styles.user__checkmark__button}
                 >

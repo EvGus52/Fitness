@@ -9,10 +9,12 @@ import CourseEnrollment from '@/components/CourseEnrollment/CourseEnrollment';
 import { getCourses } from '@/services/courses/coursesApi';
 import { CourseFromAPI } from '@/sharedTypes/sharedTypes';
 import { Course } from '@/sharedTypes/sharedTypes';
+import { useUser } from '@/contexts/UserContext';
 
 function CoursesContent() {
     const searchParams = useSearchParams();
     const courseId = searchParams.get('id');
+    const { user, refreshUser } = useUser();
     const [courses, setCourses] = useState<CourseFromAPI[]>([]);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
@@ -38,18 +40,18 @@ function CoursesContent() {
         suitableFor?: string[];
         directions?: string[];
     }) | null = courseFromAPI
-        ? {
-            id: courseFromAPI._id,
-            nameRU: courseFromAPI.nameRU,
-            durationInDays: courseFromAPI.durationInDays,
-            dailyDurationInMinutes: courseFromAPI.dailyDurationInMinutes,
-            difficulty: courseFromAPI.difficulty.toLowerCase().includes('легк') ? 1 : 
-                       courseFromAPI.difficulty.toLowerCase().includes('средн') ? 3 : 5,
-            image: `/skill card ${courseFromAPI.order}.png`, // используем order для изображения
-            suitableFor: courseFromAPI.fitting || [],
-            directions: courseFromAPI.directions || [],
-        }
-        : null;
+            ? {
+                id: courseFromAPI._id,
+                nameRU: courseFromAPI.nameRU,
+                durationInDays: courseFromAPI.durationInDays,
+                dailyDurationInMinutes: courseFromAPI.dailyDurationInMinutes,
+                difficulty: courseFromAPI.difficulty.toLowerCase().includes('легк') ? 1 :
+                    courseFromAPI.difficulty.toLowerCase().includes('средн') ? 3 : 5,
+                image: `/skill card ${courseFromAPI.order}.png`, // используем order для изображения
+                suitableFor: courseFromAPI.fitting || [],
+                directions: courseFromAPI.directions || [],
+            }
+            : null;
 
     if (isLoading) {
         return (
@@ -79,7 +81,11 @@ function CoursesContent() {
             {courseWithData ? (
                 <>
                     <AboutCourse course={courseWithData} />
-                    <CourseEnrollment />
+                    <CourseEnrollment
+                        courseId={courseWithData.id}
+                        isAdded={user?.selectedCourses?.includes(courseWithData.id)}
+                        onCourseAdded={refreshUser}
+                    />
                 </>
             ) : (
                 <div style={{ padding: '40px', textAlign: 'center' }}>

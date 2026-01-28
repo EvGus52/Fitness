@@ -16,12 +16,12 @@ export default function AboutCourse({ course }: AboutCourseProps) {
     <div className={styles.aboutCourse}>
       {/* Верхняя секция - изображение skill card */}
       <div className={styles.topSection}>
-        <div className={`container ${styles.topContainer}`}>
+        <div className={`center ${styles.topContainer}`}>
           <Image
             src={course.image || `/skill card 1.png`}
             alt={course.nameRU}
-            width={1200}
-            height={600}
+            width={1160}
+            height={310}
             className={styles.skillCardImage}
           />
         </div>
@@ -29,7 +29,7 @@ export default function AboutCourse({ course }: AboutCourseProps) {
 
       {/* Нижняя секция - черный фон */}
       <div className={styles.bottomSection}>
-        <div className="container">
+        <div className="center">
           {/* Блок "Подойдет для вас, если:" */}
           {course.suitableFor && course.suitableFor.length > 0 && (
             <div className={styles.suitableFor}>
@@ -51,7 +51,13 @@ export default function AboutCourse({ course }: AboutCourseProps) {
               <div className={styles.directionsBar}>
                 {course.directions.map((direction, index) => (
                   <div key={index} className={styles.directionItem}>
-                    <span className={styles.directionPlus}>+</span>
+                    <Image
+                      src="/icon/star.svg"
+                      alt="Пункт"
+                      width={26}
+                      height={26}
+                      className={styles.directionPlus}
+                    />
                     <span className={styles.directionText}>{direction}</span>
                   </div>
                 ))}

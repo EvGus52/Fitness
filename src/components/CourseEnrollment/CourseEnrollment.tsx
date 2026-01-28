@@ -3,13 +3,55 @@
 import styles from './courseEnrollment.module.css';
 import Image from 'next/image';
 import { useAuthModal } from '@/contexts/AuthModalContext';
+import { useUser } from '@/contexts/UserContext';
+import { addUserCourse } from '@/services/userCourses/userCoursesApi';
+import { toast } from 'react-toastify';
+import { AxiosError } from 'axios';
 
-export default function CourseEnrollment() {
+interface CourseEnrollmentProps {
+  courseId: string;
+  isAdded?: boolean;
+  onCourseAdded?: () => void;
+}
+
+export default function CourseEnrollment({
+  courseId,
+  isAdded = false,
+  onCourseAdded,
+}: CourseEnrollmentProps) {
   const { openSignin } = useAuthModal();
+  const { user, refreshUser } = useUser();
+
+  const handleButtonClick = async () => {
+    if (!user) {
+      openSignin();
+      return;
+    }
+    if (isAdded) return;
+    try {
+      await addUserCourse(courseId);
+      toast.success('Курс успешно добавлен!');
+      await refreshUser();
+      onCourseAdded?.();
+    } catch (error) {
+      if (error instanceof AxiosError && error.response?.data) {
+        const msg = (error.response.data as { message?: string }).message;
+        toast.error(msg || 'Ошибка при добавлении курса');
+      } else {
+        toast.error('Ошибка при добавлении курса');
+      }
+    }
+  };
+
+  const buttonText = !user
+    ? 'Войдите, чтобы добавить курс'
+    : isAdded
+      ? 'Курс добавлен'
+      : 'Добавить курс';
 
   return (
     <div className={styles.enrollment}>
-      <div className="container">
+      <div className="center">
         <div className={styles.content}>
           <div className={styles.textBlock}>
             <h2 className={styles.title}>Начните путь к новому телу</h2>
@@ -28,8 +70,12 @@ export default function CourseEnrollment() {
                 помогают противостоять стрессам
               </li>
             </ul>
-            <button onClick={openSignin} className="btn btn-full">
-              Войдите, чтобы добавить курс
+            <button
+              onClick={handleButtonClick}
+              className="btn btn-full"
+              disabled={isAdded}
+            >
+              {buttonText}
             </button>
           </div>
           <div className={styles.imageBlock}>
@@ -37,8 +83,8 @@ export default function CourseEnrollment() {
               <Image
                 src="/line.svg"
                 alt=""
-                width={400}
-                height={600}
+                width={670}
+                height={390}
                 className={styles.line}
               />
             </div>
@@ -46,8 +92,8 @@ export default function CourseEnrollment() {
               <Image
                 src="/men.png"
                 alt="Атлет"
-                width={500}
-                height={700}
+                width={487}
+                height={540}
                 className={styles.men}
               />
             </div>
