@@ -17,6 +17,7 @@
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
+  cursor: pointer;
 }
 
 .modal__block {
@@ -29,19 +30,27 @@
 }
 
 .modal__content {
-  width: 266px;
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 24px;
+  min-width: 280px;
 }
 
-.message {
+.modal__icon {
+  width: 56px;
+  height: 56px;
+  object-fit: contain;
+}
+
+.modal__message {
   font-size: 18px;
-  line-height: 24px;
+  font-weight: 500;
+  color: #000;
+  margin: 0;
+  text-align: center;
 }
 
-.buttons {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+.modal__btn button {
+  min-width: 120px;
 }

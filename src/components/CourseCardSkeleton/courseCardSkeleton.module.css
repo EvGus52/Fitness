@@ -1,0 +1,25 @@
+.card {
+  background: #fff;
+  border-radius: 30px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+}
+
+.image {
+  display: block !important;
+}
+
+.content {
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.info {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}

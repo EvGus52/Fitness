@@ -7,6 +7,7 @@ import ToastProvider from '@/components/ToastProvider/ToastProvider';
 import { UserProvider } from '@/contexts/UserContext';
 import UserMenuProviderWrapper from '@/components/Modals/UserMenuModal/UserMenuProvider';
 import ConfirmLogoutProviderWrapper from '@/components/Modals/ConfirmLogoutModal/ConfirmLogoutProvider';
+import SelectWorkoutProviderWrapper from '@/components/Modals/SelectWorkoutModal/SelectWorkoutProvider';
 
 const roboto = Roboto({
   variable: '--font-roboto',
@@ -28,11 +29,13 @@ export default function RootLayout({
       <body className={`${roboto.variable}`}>
         <UserProvider>
           <ConfirmLogoutProviderWrapper>
-            <UserMenuProviderWrapper>
-              <AuthModalProviderWrapper>
-                <ToastProvider>{children}</ToastProvider>
-              </AuthModalProviderWrapper>
-            </UserMenuProviderWrapper>
+            <SelectWorkoutProviderWrapper>
+              <UserMenuProviderWrapper>
+                <AuthModalProviderWrapper>
+                  <ToastProvider>{children}</ToastProvider>
+                </AuthModalProviderWrapper>
+              </UserMenuProviderWrapper>
+            </SelectWorkoutProviderWrapper>
           </ConfirmLogoutProviderWrapper>
         </UserProvider>
       </body>

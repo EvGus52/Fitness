@@ -1,40 +1,18 @@
 .card {
+  composes: card from '../../styles/courseCardBase.module.css';
   grid-column: span 4;
-  background: #fff;
-  border-radius: 30px;
-  overflow: hidden;
   cursor: pointer;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   text-decoration: none;
   display: block;
   color: inherit;
 }
 
-.card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-}
-
 .card__image__wrapper {
-  position: relative;
-  width: 100%;
-  height: 325px;
-  overflow: hidden;
+  composes: card__image__wrapper from '../../styles/courseCardBase.module.css';
 }
 
 .card__image {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.3s ease;
-}
-
-.card:hover .card__image {
-  transform: scale(1.05);
+  composes: card__image from '../../styles/courseCardBase.module.css';
 }
 
 .card__favorite {
@@ -56,58 +34,47 @@
 }
 
 .card__icon {
-  object-fit: contain;
+  composes: card__duration__icon from '../../styles/courseCardBase.module.css';
 }
 
 .card__content {
-  padding: 30px;
+  composes: card__content from '../../styles/courseCardBase.module.css';
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  flex: 1;
 }
 
 .card__title {
-  font-size: 32px;
-  font-weight: 500;
-  margin-bottom: 20px;
+  composes: card__title from '../../styles/courseCardBase.module.css';
 }
 
 .card__info {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
+  composes: card__info from '../../styles/courseCardBase.module.css';
 }
 
 .card__duration,
-.card__time,
-.difficulty__indicator {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 10px;
-  border-radius: 50px;
-  background: rgba(247, 247, 247, 1);
-  font-size: 16px;
-  color: rgba(32, 32, 32, 1);
+.card__time {
+  composes: card__duration from '../../styles/courseCardBase.module.css';
 }
 
 .card__duration__icon,
 .card__time__icon {
-  object-fit: contain;
+  composes: card__duration__icon from '../../styles/courseCardBase.module.css';
+}
+
+.difficulty__indicator {
+  composes: difficulty__indicator from '../../styles/courseCardBase.module.css';
 }
 
 .difficulty__bars {
-  display: flex;
-  align-items: flex-end;
-  gap: 1px;
-  height: 18px;
+  composes: difficulty__bars from '../../styles/courseCardBase.module.css';
 }
 
 .difficulty__bar {
-  width: 4px;
-  min-height: 4px;
-  background: rgba(217, 217, 217, 1);
-  border-radius: 2px;
-  transition: background 0.3s ease;
+  composes: difficulty__bar from '../../styles/courseCardBase.module.css';
 }
 
 .difficulty__bar__active {
-  background: rgba(0, 193, 255, 1);
+  composes: difficulty__bar__active from '../../styles/courseCardBase.module.css';
 }

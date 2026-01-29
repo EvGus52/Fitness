@@ -13,7 +13,7 @@ type UserResponse = {
     email: string;
     password: string;
     selectedCourses: string[];
-    courseProgress: any[];
+    courseProgress: unknown[];
     createdAt: string;
     updatedAt: string;
     __v: number;

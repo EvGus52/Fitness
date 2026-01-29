@@ -6,29 +6,19 @@ type LoginResponse = {
   token: string;
 };
 
-type RegisterResponse = {
-  message: string;
-};
-
 /**
  * Авторизация пользователя
  * POST /auth/login
  * @param data - email и password
  * @returns Promise<LoginResponse> - объект с токеном
  */
-export const loginUser = (
-  data: createUserProp,
-): Promise<LoginResponse> => {
+export const loginUser = (data: createUserProp): Promise<LoginResponse> => {
   return axios
-    .post<LoginResponse>(
-      BASE_URL + '/auth/login',
-      data,
-      {
-        headers: {
-          'Content-Type': '',
-        },
-      }
-    )
+    .post<LoginResponse>(BASE_URL + '/auth/login', data, {
+      headers: {
+        'Content-Type': '',
+      },
+    })
     .then((res) => res.data);
 };
 
@@ -66,7 +56,9 @@ export const removeToken = (): void => {
  * Получение заголовков с Bearer токеном для авторизованных запросов
  * @returns объект с заголовком Authorization
  */
-export const getAuthHeaders = (): { Authorization: string } | {} => {
+export const getAuthHeaders = ():
+  | { Authorization: string }
+  | Record<string, never> => {
   const token = getToken();
   if (token) {
     return {

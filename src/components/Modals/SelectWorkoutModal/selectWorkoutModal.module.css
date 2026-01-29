@@ -1,0 +1,137 @@
+.wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+}
+
+.modal__block {
+  position: relative;
+  z-index: 1001;
+  border-radius: 30px;
+  box-shadow: 0px 4px 67px -12px rgba(0, 0, 0, 0.13);
+  background: rgba(255, 255, 255, 1);
+  padding: 40px;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.modal__content {
+  display: flex;
+  flex-direction: column;
+  gap: 34px;
+}
+
+.modal__title {
+  font-size: 32px;
+  font-weight: 400;
+  line-height: 110%;
+  margin-bottom: 48px;
+}
+
+.workoutList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  overflow-y: auto;
+  max-height: 50vh;
+  padding-right: 4px;
+}
+
+.workoutList::-webkit-scrollbar {
+  width: 6px;
+}
+
+.workoutList::-webkit-scrollbar-track {
+  background: rgba(247, 247, 247, 1);
+  border-radius: 3px;
+}
+
+.workoutList::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 3px;
+}
+
+.workoutItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 16px 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.workoutItem:last-child {
+  border-bottom: none;
+}
+
+.workoutItem:hover {
+  background: rgba(247, 247, 247, 0.5);
+}
+
+.workoutItem__marker {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2px;
+}
+
+.workoutItem__okIcon {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+}
+
+/* тот же размер, что у маркера выполненной тренировки (ok icon 20×20) */
+.workoutItem__radio {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+/* тот же цвет, что у маркера выполненной тренировки (ok.svg), без изображения */
+.workoutItem__radio.selected {
+  border-color: rgb(188, 236, 48);
+  background: rgb(188, 236, 48);
+}
+
+.workoutItem__text {
+  flex: 1;
+  min-width: 0;
+}
+
+.workoutItem__title {
+  font-size: 24px;
+  font-weight: 400;
+}
+
+.modal__startBtn {
+  margin-top: 8px;
+}
+
+.modal__startBtn button {
+  width: 100%;
+}

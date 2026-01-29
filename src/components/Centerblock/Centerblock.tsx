@@ -3,11 +3,14 @@
 import styles from './centerblock.module.css';
 import Image from 'next/image';
 import { CourseCard } from '@/components/CourseCard/CourseCard';
+import CourseCardSkeleton from '@/components/CourseCardSkeleton/CourseCardSkeleton';
 import { Course } from '@/sharedTypes/sharedTypes';
 
 interface CenterblockProps {
   courses: Course[];
   selectedCourses?: string[];
+  isLoading?: boolean;
+  error?: string | null;
   onCourseAdded?: () => void;
   onCourseRemoved?: () => void;
 }
@@ -15,6 +18,8 @@ interface CenterblockProps {
 export default function Centerblock({
   courses,
   selectedCourses = [],
+  isLoading = false,
+  error = null,
   onCourseAdded,
   onCourseRemoved,
 }: CenterblockProps) {
@@ -36,15 +41,27 @@ export default function Centerblock({
       </div>
 
       <div className={styles.courses__grid}>
-        {courses.map((course) => (
-          <CourseCard
-            key={course.id}
-            course={course}
-            isAdded={selectedCourses.includes(course.id)}
-            onCourseAdded={onCourseAdded}
-            onCourseRemoved={onCourseRemoved}
-          />
-        ))}
+        {isLoading ? (
+          <>
+            {[1, 2, 3].map((i) => (
+              <div key={i} className={styles.skeletonCardWrapper}>
+                <CourseCardSkeleton />
+              </div>
+            ))}
+          </>
+        ) : error ? (
+          <p className={styles.errorMessage}>{error}</p>
+        ) : (
+          courses.map((course) => (
+            <CourseCard
+              key={course.id}
+              course={course}
+              isAdded={selectedCourses.includes(course.id)}
+              onCourseAdded={onCourseAdded}
+              onCourseRemoved={onCourseRemoved}
+            />
+          ))
+        )}
       </div>
     </div>
   );

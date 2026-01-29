@@ -7,7 +7,7 @@ import { deleteUserCourse } from '@/services/userCourses/userCoursesApi';
 import { resetCourseProgress } from '@/services/courses/coursesApi';
 import { toast } from 'react-toastify';
 import { AxiosError } from 'axios';
-import { useRouter } from 'next/navigation';
+import { useSelectWorkout } from '@/contexts/SelectWorkoutContext';
 
 interface UserCourseCardProps {
   course: Course;
@@ -22,11 +22,12 @@ export default function UserCourseCard({
   onCourseRemoved,
   onProgressUpdated,
 }: UserCourseCardProps) {
-  const router = useRouter();
+  const { openModal: openSelectWorkoutModal } = useSelectWorkout();
 
   const handleRemoveClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
     try {
+      await resetCourseProgress(course.id);
       await deleteUserCourse(course.id);
       toast.success('Курс успешно удален!');
       if (onCourseRemoved) {
@@ -64,8 +65,8 @@ export default function UserCourseCard({
         }
       }
     } else {
-      // Начать тренировки или продолжить - переход на страницу курса
-      router.push(`/courses?id=${course.id}`);
+      // Начать тренировки или Продолжить — открыть модалку выбора тренировки
+      openSelectWorkoutModal(course.id, course.nameRU);
     }
   };
 
@@ -102,24 +103,39 @@ export default function UserCourseCard({
       <div className={styles.card__content}>
         <h3 className={styles.card__title}>{course.nameRU}</h3>
         <div className={styles.card__info}>
-          <span className={styles.card__duration}>
-            {course.durationInDays} дней
-          </span>
-          <span className={styles.card__time}>
-            {course.dailyDurationInMinutes.from}-
-            {course.dailyDurationInMinutes.to} мин/день
-          </span>
+          <div className={styles.card__duration}>
+            <Image
+              src="/icon/days.svg"
+              alt="Дни"
+              width={16}
+              height={16}
+              className={styles.card__duration__icon}
+            />
+            <span>{course.durationInDays} дней</span>
+          </div>
+          <div className={styles.card__time}>
+            <Image
+              src="/icon/time.svg"
+              alt="Время"
+              width={16}
+              height={16}
+              className={styles.card__time__icon}
+            />
+            <span>
+              {course.dailyDurationInMinutes.from}-
+              {course.dailyDurationInMinutes.to} мин/день
+            </span>
+          </div>
           <div className={styles.card__difficulty}>
             <div className={styles.difficulty__indicator}>
               <div className={styles.difficulty__bars}>
                 {[...Array(5)].map((_, i) => (
                   <div
                     key={i}
-                    className={`${styles.difficulty__bar} ${
-                      i < course.difficulty
-                        ? styles.difficulty__bar__active
-                        : ''
-                    }`}
+                    className={`${styles.difficulty__bar} ${i < course.difficulty
+                      ? styles.difficulty__bar__active
+                      : ''
+                      }`}
                     style={{
                       height: `${(i + 1) * 20}%`,
                     }}
@@ -129,22 +145,22 @@ export default function UserCourseCard({
               <span className={styles.difficulty__label}>Сложность</span>
             </div>
           </div>
-          <div className={styles.card__progress}>
-            <span className={styles.progress__label}>Прогресс {progress}%</span>
-            <div className={styles.progress__bar}>
-              <div
-                className={styles.progress__fill}
-                style={{ width: `${progress}%` }}
-              />
-            </div>
-          </div>
-          <button
-            onClick={handleActionClick}
-            className="btn btn-full btn-padding-sm btn-mt-10"
-          >
-            {getButtonText()}
-          </button>
         </div>
+        <div className={styles.card__progress}>
+          <span className={styles.progress__label}>Прогресс {progress}%</span>
+          <div className={styles.progress__bar}>
+            <div
+              className={styles.progress__fill}
+              style={{ width: `${progress}%` }}
+            />
+          </div>
+        </div>
+        <button
+          onClick={handleActionClick}
+          className={`btn btn-full btn-padding-sm ${styles.card__actionBtn}`}
+        >
+          {getButtonText()}
+        </button>
       </div>
     </div>
   );

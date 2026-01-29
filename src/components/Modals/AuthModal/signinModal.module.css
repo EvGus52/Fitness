@@ -46,6 +46,10 @@
   border-color: #ff0000;
 }
 
+.modal__input.login {
+  margin-bottom: 0;
+}
+
 .modal__buttons {
   display: flex;
   flex-direction: column;

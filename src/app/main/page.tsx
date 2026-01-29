@@ -90,32 +90,24 @@ export default function Home() {
   return (
     <>
       <Header />
-      {isLoading ? (
-        <div style={{ padding: '40px', textAlign: 'center' }}>
-          <p>Загрузка курсов...</p>
+      <Centerblock
+        courses={courses}
+        selectedCourses={user?.selectedCourses || []}
+        isLoading={isLoading}
+        error={error}
+        onCourseAdded={handleCourseAdded}
+        onCourseRemoved={handleCourseRemoved}
+      />
+      {!isLoading && !error && (
+        <div className={styles.scrollButtonWrapper}>
+          <a
+            href="#header"
+            onClick={handleScrollToTop}
+            className="btn btn-mb-80"
+          >
+            Наверх <span className={styles.arrow}>↑</span>
+          </a>
         </div>
-      ) : error ? (
-        <div style={{ padding: '40px', textAlign: 'center' }}>
-          <p>{error}</p>
-        </div>
-      ) : (
-        <>
-          <Centerblock
-            courses={courses}
-            selectedCourses={user?.selectedCourses || []}
-            onCourseAdded={handleCourseAdded}
-            onCourseRemoved={handleCourseRemoved}
-          />
-          <div className={styles.scrollButtonWrapper}>
-            <a
-              href="#header"
-              onClick={handleScrollToTop}
-              className="btn btn-mb-80"
-            >
-              Наверх <span className={styles.arrow}>↑</span>
-            </a>
-          </div>
-        </>
       )}
     </>
   );
