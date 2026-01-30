@@ -6,7 +6,7 @@ import { Course } from '@/sharedTypes/sharedTypes';
 import { deleteUserCourse } from '@/services/userCourses/userCoursesApi';
 import { resetCourseProgress } from '@/services/courses/coursesApi';
 import { toast } from 'react-toastify';
-import { AxiosError } from 'axios';
+import { getAxiosErrorMessage } from '@/utils/errorUtils';
 import { useSelectWorkout } from '@/contexts/SelectWorkoutContext';
 
 interface UserCourseCardProps {
@@ -34,14 +34,7 @@ export default function UserCourseCard({
         onCourseRemoved();
       }
     } catch (error) {
-      if (error instanceof AxiosError) {
-        if (error.response) {
-          const errorData = error.response.data as { message: string };
-          toast.error(errorData.message || 'Ошибка при удалении курса');
-        } else {
-          toast.error('Ошибка при удалении курса');
-        }
-      }
+      toast.error(getAxiosErrorMessage(error, 'Ошибка при удалении курса'));
     }
   };
 
@@ -55,14 +48,7 @@ export default function UserCourseCard({
           onProgressUpdated();
         }
       } catch (error) {
-        if (error instanceof AxiosError) {
-          if (error.response) {
-            const errorData = error.response.data as { message: string };
-            toast.error(errorData.message || 'Ошибка при сбросе прогресса');
-          } else {
-            toast.error('Ошибка при сбросе прогресса');
-          }
-        }
+        toast.error(getAxiosErrorMessage(error, 'Ошибка при сбросе прогресса'));
       }
     } else {
       // Начать тренировки или Продолжить — открыть модалку выбора тренировки

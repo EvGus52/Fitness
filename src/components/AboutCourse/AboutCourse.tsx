@@ -2,13 +2,10 @@
 
 import styles from './aboutCourse.module.css';
 import Image from 'next/image';
-import { Course } from '@/sharedTypes/sharedTypes';
+import type { CourseForDetailPage } from '@/utils/courseUtils';
 
 interface AboutCourseProps {
-  course: Course & {
-    suitableFor?: string[]; // "Подойдет для вас, если:"
-    directions?: string[]; // "Направления"
-  };
+  course: CourseForDetailPage;
 }
 
 export default function AboutCourse({ course }: AboutCourseProps) {

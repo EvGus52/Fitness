@@ -6,8 +6,10 @@ import Image from 'next/image';
 import { useUser } from '@/contexts/UserContext';
 import { getCourses } from '@/services/courses/coursesApi';
 import { getCourseProgress } from '@/services/progress/progressApi';
-import { CourseFromAPI, CourseProgress } from '@/sharedTypes/sharedTypes';
+import { CourseFromAPI } from '@/sharedTypes/sharedTypes';
 import { Course } from '@/sharedTypes/sharedTypes';
+import { calculateCourseProgress, transformCourse } from '@/utils/courseUtils';
+import { isNetworkError } from '@/utils/errorUtils';
 import UserCourseCard from '@/components/UserCourseCard/UserCourseCard';
 import ProfileSkeleton from '@/components/UserProfile/ProfileSkeleton';
 import CourseCardSkeleton from '@/components/CourseCardSkeleton/CourseCardSkeleton';
@@ -15,65 +17,6 @@ import CourseCardSkeleton from '@/components/CourseCardSkeleton/CourseCardSkelet
 interface UserProfileProps {
     onLogout?: () => void;
 }
-
-// Маппинг названий курсов на изображения
-const getCourseImage = (nameEN: string, nameRU: string): string => {
-    const imageMap: Record<string, string> = {
-        yoga: '/Yoga.png',
-        stretching: '/Stretching.png',
-        fitness: '/Fitness.png',
-        stepairobic: '/StepAirobic.png',
-        bodyflex: '/BodyFlex.png',
-        'степ-аэробика': '/StepAirobic.png',
-        йога: '/Yoga.png',
-        стретчинг: '/Stretching.png',
-        фитнес: '/Fitness.png',
-        бодифлекс: '/BodyFlex.png',
-    };
-
-    const keyEN = nameEN.toLowerCase();
-    const keyRU = nameRU.toLowerCase();
-
-    return imageMap[keyEN] || imageMap[keyRU] || '/Fitness.png';
-};
-
-// Преобразование строки сложности в число (1-5)
-const difficultyToNumber = (difficulty: string): number => {
-    const lower = difficulty.toLowerCase();
-    if (lower.includes('легк') || lower.includes('начал')) return 1;
-    if (lower.includes('средн')) return 3;
-    if (lower.includes('сложн') || lower.includes('продвинут')) return 5;
-    return 3;
-};
-
-// Преобразование данных из API в формат для компонентов
-const transformCourse = (course: CourseFromAPI): Course => {
-    return {
-        id: course._id,
-        nameRU: course.nameRU,
-        durationInDays: course.durationInDays,
-        dailyDurationInMinutes: course.dailyDurationInMinutes,
-        difficulty: difficultyToNumber(course.difficulty),
-        image: getCourseImage(course.nameEN, course.nameRU),
-    };
-};
-
-// Вычисление прогресса курса: 100% только когда все тренировки курса выполнены (workoutCompleted).
-// totalWorkoutsInCourse — реальное число тренировок в курсе (из данных курса), не из progress.
-const calculateCourseProgress = (
-    progress: CourseProgress | null,
-    totalWorkoutsInCourse: number
-): number => {
-    if (!progress || totalWorkoutsInCourse === 0) return 0;
-    const list = progress.workoutsProgress;
-    if (!Array.isArray(list)) return 0;
-
-    const completedWorkouts = list.filter(
-        (wp) => wp.workoutCompleted
-    ).length;
-
-    return Math.round((completedWorkouts / totalWorkoutsInCourse) * 100);
-};
 
 export default function UserProfile({ onLogout }: UserProfileProps) {
     const { user, isLoading, refreshUser } = useUser();
@@ -121,10 +64,7 @@ export default function UserProfile({ onLogout }: UserProfileProps) {
                     progressMap[course._id] = calculateCourseProgress(progress, totalWorkoutsInCourse);
                 } catch (error) {
                     progressMap[course._id] = 0;
-                    const isNetworkError =
-                        error instanceof Error &&
-                        (error.message === 'Network Error' || (error as { code?: string }).code === 'ERR_NETWORK');
-                    if (!isNetworkError) {
+                    if (!isNetworkError(error)) {
                         console.error(`Ошибка при загрузке прогресса для курса ${course._id}:`, error);
                     }
                 }
@@ -139,7 +79,7 @@ export default function UserProfile({ onLogout }: UserProfileProps) {
 
     const handleCourseRemoved = () => {
         refreshUser();
-        loadUserCourses();
+        // loadUserCourses вызовется из useEffect при обновлении user.selectedCourses
     };
 
     const handleProgressUpdated = () => {

@@ -8,7 +8,7 @@ import { useUser } from '@/contexts/UserContext';
 import { useAuthModal } from '@/contexts/AuthModalContext';
 import { addUserCourse, deleteUserCourse } from '@/services/userCourses/userCoursesApi';
 import { toast } from 'react-toastify';
-import { AxiosError } from 'axios';
+import { getAxiosErrorMessage } from '@/utils/errorUtils';
 
 interface CourseCardProps {
     course: Course;
@@ -44,14 +44,7 @@ export function CourseCard({
                     onCourseRemoved();
                 }
             } catch (error) {
-                if (error instanceof AxiosError) {
-                    if (error.response) {
-                        const errorData = error.response.data as { message: string };
-                        toast.error(errorData.message || 'Ошибка при удалении курса');
-                    } else {
-                        toast.error('Ошибка при удалении курса');
-                    }
-                }
+                toast.error(getAxiosErrorMessage(error, 'Ошибка при удалении курса'));
             }
         } else {
             // Добавление курса
@@ -62,14 +55,7 @@ export function CourseCard({
                     onCourseAdded();
                 }
             } catch (error) {
-                if (error instanceof AxiosError) {
-                    if (error.response) {
-                        const errorData = error.response.data as { message: string };
-                        toast.error(errorData.message || 'Ошибка при добавлении курса');
-                    } else {
-                        toast.error('Ошибка при добавлении курса');
-                    }
-                }
+                toast.error(getAxiosErrorMessage(error, 'Ошибка при добавлении курса'));
             }
         }
     };
@@ -131,8 +117,8 @@ export function CourseCard({
                                     <div
                                         key={i}
                                         className={`${styles.difficulty__bar} ${i < course.difficulty
-                                                ? styles.difficulty__bar__active
-                                                : ''
+                                            ? styles.difficulty__bar__active
+                                            : ''
                                             }`}
                                         style={{
                                             height: `${(i + 1) * 20}%`,

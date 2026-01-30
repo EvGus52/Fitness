@@ -1,7 +1,7 @@
 'use client';
 
-import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import { useModalBodyLock } from '@/hooks/useModalBodyLock';
 import { useConfirmLogout } from '@/contexts/ConfirmLogoutContext';
 import { removeToken } from '@/services/auth/authApi';
 import { useUser } from '@/contexts/UserContext';
@@ -12,17 +12,7 @@ export default function ConfirmLogoutModal() {
   const router = useRouter();
   const { clearUser } = useUser();
 
-  useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'unset';
-    }
-
-    return () => {
-      document.body.style.overflow = 'unset';
-    };
-  }, [isOpen]);
+  useModalBodyLock(isOpen);
 
   if (!isOpen) return null;
 

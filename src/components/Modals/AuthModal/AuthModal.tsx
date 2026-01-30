@@ -1,7 +1,7 @@
 'use client';
 
-import { useEffect } from 'react';
 import { useAuthModal } from '@/contexts/AuthModalContext';
+import { useModalBodyLock } from '@/hooks/useModalBodyLock';
 import SigninModal from './SigninModal';
 import SignupModal from './SignupModal';
 import styles from './authModal.module.css';
@@ -9,17 +9,7 @@ import styles from './authModal.module.css';
 export default function AuthModal() {
   const { modalType, closeModal } = useAuthModal();
 
-  useEffect(() => {
-    if (modalType) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'unset';
-    }
-
-    return () => {
-      document.body.style.overflow = 'unset';
-    };
-  }, [modalType]);
+  useModalBodyLock(!!modalType);
 
   if (!modalType) return null;
 

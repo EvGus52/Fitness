@@ -6,7 +6,7 @@ import { useAuthModal } from '@/contexts/AuthModalContext';
 import { useUser } from '@/contexts/UserContext';
 import { addUserCourse } from '@/services/userCourses/userCoursesApi';
 import { toast } from 'react-toastify';
-import { AxiosError } from 'axios';
+import { getAxiosErrorMessage } from '@/utils/errorUtils';
 
 interface CourseEnrollmentProps {
   courseId: string;
@@ -34,12 +34,7 @@ export default function CourseEnrollment({
       await refreshUser();
       onCourseAdded?.();
     } catch (error) {
-      if (error instanceof AxiosError && error.response?.data) {
-        const msg = (error.response.data as { message?: string }).message;
-        toast.error(msg || 'Ошибка при добавлении курса');
-      } else {
-        toast.error('Ошибка при добавлении курса');
-      }
+      toast.error(getAxiosErrorMessage(error, 'Ошибка при добавлении курса'));
     }
   };
 

@@ -1,5 +1,3 @@
-'use client';
-
 import Link from 'next/link';
 import Header from '@/components/Header/Header';
 import styles from './not-found.module.css';

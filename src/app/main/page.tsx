@@ -4,52 +4,10 @@ import { useEffect, useState } from 'react';
 import Centerblock from '@/components/Centerblock/Centerblock';
 import Header from '@/components/Header/Header';
 import { getCourses } from '@/services/courses/coursesApi';
-import { CourseFromAPI } from '@/sharedTypes/sharedTypes';
 import { Course } from '@/sharedTypes/sharedTypes';
+import { transformCourse } from '@/utils/courseUtils';
 import { useUser } from '@/contexts/UserContext';
 import styles from './page.module.css';
-
-// Маппинг названий курсов на изображения (по nameEN или nameRU)
-const getCourseImage = (nameEN: string, nameRU: string): string => {
-  const imageMap: Record<string, string> = {
-    yoga: '/Yoga.png',
-    stretching: '/Stretching.png',
-    fitness: '/Fitness.png',
-    stepairobic: '/StepAirobic.png',
-    bodyflex: '/BodyFlex.png',
-    'степ-аэробика': '/StepAirobic.png',
-    йога: '/Yoga.png',
-    стретчинг: '/Stretching.png',
-    фитнес: '/Fitness.png',
-    бодифлекс: '/BodyFlex.png',
-  };
-
-  const keyEN = nameEN.toLowerCase();
-  const keyRU = nameRU.toLowerCase();
-
-  return imageMap[keyEN] || imageMap[keyRU] || '/Fitness.png';
-};
-
-// Преобразование строки сложности в число (1-5)
-const difficultyToNumber = (difficulty: string): number => {
-  const lower = difficulty.toLowerCase();
-  if (lower.includes('легк') || lower.includes('начал')) return 1;
-  if (lower.includes('средн')) return 3;
-  if (lower.includes('сложн') || lower.includes('продвинут')) return 5;
-  return 3; // по умолчанию
-};
-
-// Преобразование данных из API в формат для компонентов
-const transformCourse = (course: CourseFromAPI): Course => {
-  return {
-    id: course._id,
-    nameRU: course.nameRU,
-    durationInDays: course.durationInDays,
-    dailyDurationInMinutes: course.dailyDurationInMinutes,
-    difficulty: difficultyToNumber(course.difficulty),
-    image: getCourseImage(course.nameEN, course.nameRU),
-  };
-};
 
 export default function Home() {
   const [courses, setCourses] = useState<Course[]>([]);

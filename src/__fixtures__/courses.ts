@@ -1,6 +1,9 @@
 import { Course } from '@/sharedTypes/sharedTypes';
 
-// Временные моковые данные (позже будут из API)
+/**
+ * Моковые данные курсов для тестов (unit, integration, Storybook).
+ * Импорт: import { mockCourses } from '@/__fixtures__/courses';
+ */
 export const mockCourses: Course[] = [
   {
     id: '1',

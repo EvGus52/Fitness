@@ -79,3 +79,6 @@ export type DeleteCourseResponse = {
 export type ResetProgressResponse = {
   message: string;
 };
+
+/** Тело ответа API с ошибкой (response.data) */
+export type ApiErrorBody = { message?: string };

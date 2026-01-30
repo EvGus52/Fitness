@@ -8,8 +8,9 @@ import styles from './signupModal.module.css';
 
 import { regUser } from '@/services/auth/regApi';
 import { loginUser, saveToken } from '@/services/auth/authApi';
-import { AxiosError } from 'axios';
 import { toast } from 'react-toastify';
+import { getAxiosErrorToastMessage } from '@/utils/errorUtils';
+import { validateEmail } from '@/utils/validation';
 import { useUser } from '@/contexts/UserContext';
 
 export default function SignupModal() {
@@ -21,12 +22,6 @@ export default function SignupModal() {
   const [repeatPassword, setRepeatPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [errors, setErrors] = useState<{ email?: boolean; password?: boolean; repeatPassword?: boolean }>({});
-
-  const validateEmail = (value: string): boolean => {
-    if (!value.trim()) return false;
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(value);
-  };
 
   const validateForm = (): boolean => {
     const newErrors: { email?: boolean; password?: boolean; repeatPassword?: boolean } = {};
@@ -119,18 +114,7 @@ export default function SignupModal() {
         router.push('/main');
       })
       .catch((error) => {
-        if (error instanceof AxiosError) {
-          if (error.response) {
-            const errorData = error.response.data as { message: string };
-            toast.error(errorData.message || 'Ошибка при регистрации');
-          } else if (error.request) {
-            toast.error('Пропал интернет');
-          } else {
-            toast.error('Неизвестная ошибка, попробуйте позже');
-          }
-        } else {
-          toast.error('Ошибка при регистрации');
-        }
+        toast.error(getAxiosErrorToastMessage(error, 'Ошибка при регистрации'));
       })
       .finally(() => {
         setIsLoading(false);

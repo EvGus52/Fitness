@@ -1,10 +1,11 @@
 'use client';
 
 import { useEffect, useState, useRef } from 'react';
+import { useModalBodyLock } from '@/hooks/useModalBodyLock';
 import { Exercise } from '@/sharedTypes/sharedTypes';
 import { saveWorkoutProgress } from '@/services/workouts/workoutsApi';
 import { toast } from 'react-toastify';
-import { AxiosError } from 'axios';
+import { getAxiosErrorMessage } from '@/utils/errorUtils';
 
 import styles from './progressModal.module.css';
 
@@ -40,16 +41,7 @@ export default function ProgressModal({
     prevOpenRef.current = isOpen;
   }, [isOpen, exercises.length]);
 
-  useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
-    }
-    return () => {
-      document.body.style.overflow = '';
-    };
-  }, [isOpen]);
+  useModalBodyLock(isOpen);
 
   if (!isOpen) return null;
 
@@ -80,12 +72,7 @@ export default function ProgressModal({
       onSaveSuccess?.();
       onClose();
     } catch (error) {
-      if (error instanceof AxiosError && error.response?.data) {
-        const data = error.response.data as { message?: string };
-        toast.error(data.message ?? 'Ошибка при сохранении');
-      } else {
-        toast.error('Ошибка при сохранении прогресса');
-      }
+      toast.error(getAxiosErrorMessage(error, 'Ошибка при сохранении прогресса'));
     } finally {
       setIsSaving(false);
     }

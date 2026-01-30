@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useModalBodyLock } from '@/hooks/useModalBodyLock';
 import Image from 'next/image';
 import styles from './successConfirmModal.module.css';
 
@@ -15,16 +15,7 @@ export default function SuccessConfirmModal({
   message = 'Прогресс сохранён',
   onClose,
 }: SuccessConfirmModalProps) {
-  useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
-    }
-    return () => {
-      document.body.style.overflow = '';
-    };
-  }, [isOpen]);
+  useModalBodyLock(isOpen);
 
   if (!isOpen) return null;
 

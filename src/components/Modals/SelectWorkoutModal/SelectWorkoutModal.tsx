@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { useModalBodyLock } from '@/hooks/useModalBodyLock';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { useSelectWorkout } from '@/contexts/SelectWorkoutContext';
@@ -118,16 +119,7 @@ export default function SelectWorkoutModal() {
   const { isOpen, courseId, closeModal } = useSelectWorkout();
   const router = useRouter();
 
-  useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
-    }
-    return () => {
-      document.body.style.overflow = '';
-    };
-  }, [isOpen]);
+  useModalBodyLock(isOpen);
 
   if (!isOpen) return null;
 

@@ -12,7 +12,7 @@ import { getCourseById } from '@/services/courses/coursesApi';
 import { getWorkoutById, resetWorkoutProgress } from '@/services/workouts/workoutsApi';
 import { getWorkoutProgress } from '@/services/progress/progressApi';
 import { toast } from 'react-toastify';
-import { AxiosError } from 'axios';
+import { getAxiosErrorMessage } from '@/utils/errorUtils';
 import { CourseFromAPI } from '@/sharedTypes/sharedTypes';
 import { Workout, WorkoutProgress } from '@/sharedTypes/sharedTypes';
 import styles from './page.module.css';
@@ -109,12 +109,7 @@ function WorkoutContent() {
       setWorkoutProgress(freshProgress);
       toast.success('Прогресс тренировки сброшен');
     } catch (error) {
-      if (error instanceof AxiosError && error.response?.data) {
-        const data = error.response.data as { message?: string };
-        toast.error(data.message ?? 'Ошибка при сбросе прогресса');
-      } else {
-        toast.error('Ошибка при сбросе прогресса');
-      }
+      toast.error(getAxiosErrorMessage(error, 'Ошибка при сбросе прогресса'));
     }
   };
 

@@ -8,7 +8,7 @@ import AboutCourse from '@/components/AboutCourse/AboutCourse';
 import CourseEnrollment from '@/components/CourseEnrollment/CourseEnrollment';
 import { getCourses } from '@/services/courses/coursesApi';
 import { CourseFromAPI } from '@/sharedTypes/sharedTypes';
-import { Course } from '@/sharedTypes/sharedTypes';
+import { transformCourseForDetailPage } from '@/utils/courseUtils';
 import { useUser } from '@/contexts/UserContext';
 
 function CoursesContent() {
@@ -32,26 +32,10 @@ function CoursesContent() {
             });
     }, []);
 
-    // Находим курс по ID из данных API
     const courseFromAPI = courses.find((c) => c._id === courseId);
-
-    // Преобразуем данные из API в формат для компонента
-    const courseWithData: (Course & {
-        suitableFor?: string[];
-        directions?: string[];
-    }) | null = courseFromAPI
-            ? {
-                id: courseFromAPI._id,
-                nameRU: courseFromAPI.nameRU,
-                durationInDays: courseFromAPI.durationInDays,
-                dailyDurationInMinutes: courseFromAPI.dailyDurationInMinutes,
-                difficulty: courseFromAPI.difficulty.toLowerCase().includes('легк') ? 1 :
-                    courseFromAPI.difficulty.toLowerCase().includes('средн') ? 3 : 5,
-                image: `/skill card ${courseFromAPI.order}.png`, // используем order для изображения
-                suitableFor: courseFromAPI.fitting || [],
-                directions: courseFromAPI.directions || [],
-            }
-            : null;
+    const courseWithData = courseFromAPI
+        ? transformCourseForDetailPage(courseFromAPI)
+        : null;
 
     if (isLoading) {
         return (
