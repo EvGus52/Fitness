@@ -22,7 +22,14 @@
 
 # misc
 .DS_Store
+Thumbs.db
 *.pem
+
+# IDE (убери .vscode из списка, если хочешь коммитить настройки проекта)
+.vscode/
+
+# eslint
+.eslintcache
 
 # debug
 npm-debug.log*

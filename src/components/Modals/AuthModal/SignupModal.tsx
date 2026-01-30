@@ -9,9 +9,11 @@ import styles from './signupModal.module.css';
 import { regUser } from '@/services/auth/regApi';
 import { loginUser, saveToken } from '@/services/auth/authApi';
 import { toast } from 'react-toastify';
-import { getAxiosErrorToastMessage } from '@/utils/errorUtils';
-import { validateEmail } from '@/utils/validation';
+import { getAxiosErrorMessage } from '@/utils/errorUtils';
+import { validateEmail, validatePassword } from '@/utils/validation';
 import { useUser } from '@/contexts/UserContext';
+
+const PASSWORD_HINT = 'Не менее 6 символов, не менее 2 спецсимволов, не менее одной заглавной буквы';
 
 export default function SignupModal() {
   const router = useRouter();
@@ -22,8 +24,9 @@ export default function SignupModal() {
   const [repeatPassword, setRepeatPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [errors, setErrors] = useState<{ email?: boolean; password?: boolean; repeatPassword?: boolean }>({});
+  const [formError, setFormError] = useState<string | null>(null);
 
-  const validateForm = (): boolean => {
+  const validateForm = (): { isValid: boolean; formError: string | null } => {
     const newErrors: { email?: boolean; password?: boolean; repeatPassword?: boolean } = {};
     let isValid = true;
 
@@ -43,11 +46,19 @@ export default function SignupModal() {
     }
 
     setErrors(newErrors);
-    return isValid;
+
+    if (!isValid && password.trim() && repeatPassword.trim() && password !== repeatPassword) {
+      return { isValid: false, formError: 'Пароли не совпадают' };
+    }
+    if (!isValid) {
+      return { isValid: false, formError: 'Заполните все поля корректно!' };
+    }
+    return { isValid: true, formError: null };
   };
 
   const onChangeEmail = (e: ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
+    setFormError(null);
     if (errors.email) {
       setErrors({ ...errors, email: false });
     }
@@ -55,6 +66,7 @@ export default function SignupModal() {
 
   const onChangePassword = (e: ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
+    setFormError(null);
     if (errors.password) {
       setErrors({ ...errors, password: false });
     }
@@ -65,6 +77,7 @@ export default function SignupModal() {
 
   const onChangeRepeatPassword = (e: ChangeEvent<HTMLInputElement>) => {
     setRepeatPassword(e.target.value);
+    setFormError(null);
     if (errors.repeatPassword) {
       setErrors({ ...errors, repeatPassword: false });
     }
@@ -77,7 +90,7 @@ export default function SignupModal() {
   };
 
   const onBlurPassword = () => {
-    if (!password.trim() || password.length < 6) {
+    if (validatePassword(password)) {
       setErrors({ ...errors, password: true });
     }
   };
@@ -90,9 +103,11 @@ export default function SignupModal() {
 
   const onSubmit = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
+    setFormError(null);
 
-    if (!validateForm()) {
-      toast.error('Заполните все поля корректно!');
+    const validation = validateForm();
+    if (!validation.isValid) {
+      setFormError(validation.formError ?? 'Заполните все поля корректно!');
       return;
     }
 
@@ -100,12 +115,10 @@ export default function SignupModal() {
 
     regUser({ email, password })
       .then(() => {
-        // После успешной регистрации автоматически авторизуем пользователя
         return loginUser({ email, password });
       })
       .then((loginRes) => {
         saveToken(loginRes.token);
-        // Небольшая задержка для гарантии сохранения токена
         return new Promise((resolve) => setTimeout(resolve, 100)).then(() => refreshUser());
       })
       .then(() => {
@@ -114,7 +127,14 @@ export default function SignupModal() {
         router.push('/main');
       })
       .catch((error) => {
-        toast.error(getAxiosErrorToastMessage(error, 'Ошибка при регистрации'));
+        const message = getAxiosErrorMessage(error, 'Пользователь с таким email уже существует');
+        setFormError(message);
+        const lower = message.toLowerCase();
+        if (lower.includes('email') || lower.includes('почт') || lower.includes('существует')) {
+          setErrors({ email: true });
+        } else if (lower.includes('пароль') || lower.includes('парол')) {
+          setErrors({ password: true });
+        }
       })
       .finally(() => {
         setIsLoading(false);
@@ -154,7 +174,11 @@ export default function SignupModal() {
           onChange={onChangePassword}
           onBlur={onBlurPassword}
           value={password}
+          aria-describedby="password-hint"
         />
+        <p id="password-hint" className={styles.modal__hint}>
+          {PASSWORD_HINT}
+        </p>
         <input
           className={`${styles.modal__input} ${errors.repeatPassword ? styles.modal__input__error : ''}`}
           type="password"
@@ -165,6 +189,11 @@ export default function SignupModal() {
           value={repeatPassword}
         />
       </div>
+      {formError && (
+        <p className={styles.modal__error} role="alert">
+          {formError}
+        </p>
+      )}
       <div className={styles.modal__buttons}>
         <button
           onClick={onSubmit}

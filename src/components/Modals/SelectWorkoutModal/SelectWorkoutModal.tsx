@@ -8,6 +8,8 @@ import { useSelectWorkout } from '@/contexts/SelectWorkoutContext';
 import { getCourseWorkouts } from '@/services/courses/coursesApi';
 import { getCourseProgress } from '@/services/progress/progressApi';
 import { Workout } from '@/sharedTypes/sharedTypes';
+import { getAxiosErrorMessage } from '@/utils/errorUtils';
+import { toast } from 'react-toastify';
 import styles from './selectWorkoutModal.module.css';
 
 interface SelectWorkoutListProps {
@@ -40,8 +42,11 @@ function SelectWorkoutList({ courseId, onStart }: SelectWorkoutListProps) {
           setCompletedWorkoutIds(completed);
         }
       })
-      .catch(() => {
-        if (!cancelled) setWorkouts([]);
+      .catch((err) => {
+        if (!cancelled) {
+          setWorkouts([]);
+          toast.error(getAxiosErrorMessage(err, 'Не удалось загрузить список тренировок'));
+        }
       })
       .finally(() => {
         if (!cancelled) setIsLoading(false);

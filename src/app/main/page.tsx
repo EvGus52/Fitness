@@ -6,8 +6,8 @@ import Header from '@/components/Header/Header';
 import { getCourses } from '@/services/courses/coursesApi';
 import { Course } from '@/sharedTypes/sharedTypes';
 import { transformCourse } from '@/utils/courseUtils';
+import { getAxiosErrorMessage } from '@/utils/errorUtils';
 import { useUser } from '@/contexts/UserContext';
-import styles from './page.module.css';
 
 export default function Home() {
   const [courses, setCourses] = useState<Course[]>([]);
@@ -24,18 +24,10 @@ export default function Home() {
       })
       .catch((err) => {
         console.error('Ошибка при загрузке курсов:', err);
-        setError('Не удалось загрузить курсы');
+        setError(getAxiosErrorMessage(err, 'Не удалось загрузить курсы'));
         setIsLoading(false);
       });
   }, []);
-
-  const handleCourseAdded = () => {
-    refreshUser();
-  };
-
-  const handleCourseRemoved = () => {
-    refreshUser();
-  };
 
   const handleScrollToTop = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
@@ -53,17 +45,17 @@ export default function Home() {
         selectedCourses={user?.selectedCourses || []}
         isLoading={isLoading}
         error={error}
-        onCourseAdded={handleCourseAdded}
-        onCourseRemoved={handleCourseRemoved}
+        onCourseAdded={refreshUser}
+        onCourseRemoved={refreshUser}
       />
       {!isLoading && !error && (
-        <div className={styles.scrollButtonWrapper}>
+        <div style={{ display: 'flex', justifyContent: 'center' }}>
           <a
             href="#header"
             onClick={handleScrollToTop}
             className="btn btn-mb-80"
           >
-            Наверх <span className={styles.arrow}>↑</span>
+            Наверх <span style={{ verticalAlign: 'text-top', lineHeight: 1, display: 'inline-block' }}>↑</span>
           </a>
         </div>
       )}

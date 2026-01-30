@@ -52,13 +52,14 @@ export default function Centerblock({
         ) : error ? (
           <p className={styles.errorMessage}>{error}</p>
         ) : (
-          courses.map((course) => (
+          courses.map((course, index) => (
             <CourseCard
               key={course.id}
               course={course}
               isAdded={selectedCourses.includes(course.id)}
               onCourseAdded={onCourseAdded}
               onCourseRemoved={onCourseRemoved}
+              priority={index === 0}
             />
           ))
         )}

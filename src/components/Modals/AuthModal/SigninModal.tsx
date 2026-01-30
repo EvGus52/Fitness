@@ -3,12 +3,13 @@
 import { ChangeEvent, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
+import { AxiosError } from 'axios';
 import { useAuthModal } from '@/contexts/AuthModalContext';
 import styles from './signinModal.module.css';
 
 import { loginUser, saveToken } from '@/services/auth/authApi';
 import { toast } from 'react-toastify';
-import { getAxiosErrorToastMessage } from '@/utils/errorUtils';
+import { getAxiosErrorMessage } from '@/utils/errorUtils';
 import { validateEmail } from '@/utils/validation';
 import { useUser } from '@/contexts/UserContext';
 
@@ -20,6 +21,7 @@ export default function SigninModal() {
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [errors, setErrors] = useState<{ email?: boolean; password?: boolean }>({});
+  const [formError, setFormError] = useState<string | null>(null);
 
   const validateForm = (): boolean => {
     const newErrors: { email?: boolean; password?: boolean } = {};
@@ -41,6 +43,7 @@ export default function SigninModal() {
 
   const onChangeEmail = (e: ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
+    setFormError(null);
     if (errors.email) {
       setErrors({ ...errors, email: false });
     }
@@ -48,6 +51,7 @@ export default function SigninModal() {
 
   const onChangePassword = (e: ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
+    setFormError(null);
     if (errors.password) {
       setErrors({ ...errors, password: false });
     }
@@ -67,9 +71,10 @@ export default function SigninModal() {
 
   const onSubmit = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
+    setFormError(null);
 
     if (!validateForm()) {
-      toast.error('Заполните все поля корректно!');
+      setFormError('Заполните все поля корректно!');
       return;
     }
     setIsLoading(true);
@@ -77,7 +82,6 @@ export default function SigninModal() {
     loginUser({ email, password })
       .then((res) => {
         saveToken(res.token);
-        // Небольшая задержка для гарантии сохранения токена
         return new Promise((resolve) => setTimeout(resolve, 100)).then(() => refreshUser());
       })
       .then(() => {
@@ -86,7 +90,11 @@ export default function SigninModal() {
         router.push('/main');
       })
       .catch((error) => {
-        toast.error(getAxiosErrorToastMessage(error, 'Ошибка при входе'));
+        const message = getAxiosErrorMessage(error, 'Пароль введен неверно, попробуйте еще раз.');
+        setFormError(message);
+        if (error instanceof AxiosError && error.response?.status === 401) {
+          setErrors({ password: true });
+        }
       })
       .finally(() => {
         setIsLoading(false);
@@ -128,6 +136,11 @@ export default function SigninModal() {
           value={password}
         />
       </div>
+      {formError && (
+        <p className={styles.modal__error} role="alert">
+          {formError}
+        </p>
+      )}
       <div className={styles.modal__buttons}>
         <button
           onClick={onSubmit}

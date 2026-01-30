@@ -9,7 +9,7 @@ import { getCourseProgress } from '@/services/progress/progressApi';
 import { CourseFromAPI } from '@/sharedTypes/sharedTypes';
 import { Course } from '@/sharedTypes/sharedTypes';
 import { calculateCourseProgress, transformCourse } from '@/utils/courseUtils';
-import { isNetworkError } from '@/utils/errorUtils';
+import { getAxiosErrorMessage, isNetworkError } from '@/utils/errorUtils';
 import UserCourseCard from '@/components/UserCourseCard/UserCourseCard';
 import ProfileSkeleton from '@/components/UserProfile/ProfileSkeleton';
 import CourseCardSkeleton from '@/components/CourseCardSkeleton/CourseCardSkeleton';
@@ -75,7 +75,7 @@ export default function UserProfile({ onLogout }: UserProfileProps) {
             setCoursesProgress(progressMap);
         } catch (error) {
             console.error('Ошибка при загрузке курсов пользователя:', error);
-            setCoursesError('Не удалось загрузить курсы');
+            setCoursesError(getAxiosErrorMessage(error, 'Не удалось загрузить курсы'));
         } finally {
             setIsLoadingCourses(false);
         }

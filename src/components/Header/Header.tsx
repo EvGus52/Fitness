@@ -12,14 +12,14 @@ export default function Header() {
   const { openSignin } = useAuthModal();
   const { user, isLoading } = useUser();
   const { openMenu } = useUserMenu();
-  const triggerButtonRef = useRef<HTMLButtonElement>(null);
+  const userInfoRef = useRef<HTMLDivElement>(null);
 
   // Извлекаем имя из email (часть до @)
   const userName = user?.email ? user.email.split('@')[0] : '';
 
-  const handleCheckmarkClick = (e: React.MouseEvent) => {
+  const handleUserInfoClick = (e: React.MouseEvent) => {
     e.stopPropagation();
-    const rect = triggerButtonRef.current?.getBoundingClientRect();
+    const rect = userInfoRef.current?.getBoundingClientRect();
     openMenu(rect ? { top: rect.top, left: rect.left, right: rect.right, bottom: rect.bottom } : undefined);
   };
 
@@ -42,28 +42,37 @@ export default function Header() {
         {!isLoading && (
           <>
             {user ? (
-              <div className={styles.user__info}>
+              <div
+                ref={userInfoRef}
+                role="button"
+                tabIndex={0}
+                onClick={handleUserInfoClick}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    handleUserInfoClick(e as unknown as React.MouseEvent);
+                  }
+                }}
+                className={styles.user__info}
+                aria-label="Открыть меню пользователя"
+              >
                 <Image
                   src="/icon/iconUser.svg"
-                  alt="User icon"
+                  alt=""
                   width={42}
                   height={42}
                   className={styles.user__icon}
                 />
                 <span className={styles.user__name}>{userName}</span>
-                <button
-                  ref={triggerButtonRef}
-                  onClick={handleCheckmarkClick}
-                  className={styles.user__checkmark__button}
-                >
+                <span className={styles.user__checkmark__button} aria-hidden>
                   <Image
                     src="/icon/checkmark.svg"
-                    alt="Checkmark"
+                    alt=""
                     width={8}
                     height={8}
                     className={styles.user__checkmark}
                   />
-                </button>
+                </span>
               </div>
             ) : (
               <button onClick={openSignin} className="btn">

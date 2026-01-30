@@ -1,6 +1,7 @@
 'use client';
 
 import { Exercise, WorkoutProgress } from '@/sharedTypes/sharedTypes';
+import { getExerciseProgressPercent } from '@/utils/workoutUtils';
 import styles from './workoutExercises.module.css';
 
 interface WorkoutExercisesProps {
@@ -9,19 +10,6 @@ interface WorkoutExercisesProps {
   progress: WorkoutProgress | null;
   onFillProgress: () => void;
   onResetProgress?: () => void;
-}
-
-/** progressData[i] — сколько сделано по i-му упражнению; 100% когда value === exercise.quantity */
-function getExerciseProgressPercent(
-  exerciseIndex: number,
-  progressData: number[],
-  quantity: number
-): number {
-  if (!progressData || exerciseIndex >= progressData.length || quantity <= 0)
-    return 0;
-  const value = progressData[exerciseIndex];
-  if (typeof value !== 'number') return 0;
-  return Math.min(100, Math.round((value / quantity) * 100));
 }
 
 export default function WorkoutExercises({

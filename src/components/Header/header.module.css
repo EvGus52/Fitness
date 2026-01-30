@@ -35,7 +35,7 @@
     display: flex;
     align-items: center;
     gap: 12px;
-
+    cursor: pointer;
 }
 
 .user__icon {
@@ -49,9 +49,8 @@
 }
 
 .user__checkmark__button {
+    display: inline-flex;
     background: transparent;
-    border: none;
-    cursor: pointer;
     transition: transform 0.2s ease;
 }
 

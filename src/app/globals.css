@@ -12,6 +12,7 @@ body {
   line-height: 110%;
   background-color: #fafafa;
 }
+
 h1,
 h2,
 h3,
@@ -55,7 +56,6 @@ a {
 .btn:hover:not(:disabled) {
   background: rgba(198, 255, 0, 1);
   color: rgba(0, 0, 0, 1);
-  transform: scale(1.05);
 }
 
 .btn:active:not(:disabled) {
@@ -86,7 +86,6 @@ a {
   border: 1px solid rgba(0, 0, 0, 1);
   color: rgba(0, 0, 0, 1);
   background: rgba(247, 247, 247, 1);
-  transform: scale(1.05);
 }
 
 .btn-secondary:active:not(:disabled) {

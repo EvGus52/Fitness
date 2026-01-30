@@ -15,6 +15,8 @@ interface CourseCardProps {
     isAdded?: boolean;
     onCourseAdded?: () => void;
     onCourseRemoved?: () => void;
+    /** Для первой карточки на главной — улучшает LCP (loading="eager") */
+    priority?: boolean;
 }
 
 export function CourseCard({
@@ -22,6 +24,7 @@ export function CourseCard({
     isAdded = false,
     onCourseAdded,
     onCourseRemoved,
+    priority = false,
 }: CourseCardProps) {
     const { user } = useUser();
     const { openSignin } = useAuthModal();
@@ -69,6 +72,7 @@ export function CourseCard({
                     fill
                     className={styles.card__image}
                     sizes="(max-width: 768px) 100vw, 33vw"
+                    priority={priority}
                 />
                 <button
                     className={styles.card__favorite}
