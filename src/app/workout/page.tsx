@@ -50,108 +50,105 @@ function WorkoutContent() {
       .finally(() => {
         setIsLoading(false);
       });
-  }, [courseId, workoutId, hasParams]);
+  }, [hasParams, courseId, workoutId]);
+
+  const refreshProgress = () => {
+    if (!courseId || !workoutId) return;
+    getWorkoutProgress(courseId, workoutId)
+      .then(setWorkoutProgress)
+      .catch(() => setWorkoutProgress(null));
+  };
+
+  const handleResetProgress = () => {
+    if (!courseId || !workoutId) return;
+    resetWorkoutProgress(courseId, workoutId)
+      .then(() => {
+        refreshProgress();
+        toast.success('Прогресс сброшен');
+      })
+      .catch((err) => {
+        toast.error(getAxiosErrorMessage(err, 'Ошибка при сбросе прогресса'));
+      });
+  };
 
   if (!hasParams) {
     return (
       <>
         <Header />
-        <div className={styles.page}>
-          <p>Не указан курс или тренировка</p>
+        <div className={`center ${styles.page}`}>
+          <p>Укажите курс и тренировку в адресе</p>
         </div>
       </>
     );
   }
 
-  if (isLoading) {
+  if (isLoading || error) {
     return (
       <>
         <Header />
-        <div className={styles.page}>
-          <p>Загрузка...</p>
+        <div className={`center ${styles.page}`}>
+          {isLoading ? <p>Загрузка...</p> : <p>{error}</p>}
         </div>
       </>
     );
   }
 
-  if (error || !course || !workout) {
+  if (!workout) {
     return (
       <>
         <Header />
-        <div className={styles.page}>
-          <p>{error ?? 'Тренировка не найдена'}</p>
+        <div className={`center ${styles.page}`}>
+          <p>Тренировка не найдена</p>
         </div>
       </>
     );
   }
 
-  const cId = courseId as string;
-  const wId = workoutId as string;
-  const workoutOrder =
-    course.workouts.indexOf(wId) >= 0
-      ? course.workouts.indexOf(wId) + 1
-      : workout.name;
-
-  const handleFillProgress = () => {
-    setIsProgressModalOpen(true);
-  };
-
-  const handleProgressSaved = () => {
-    getWorkoutProgress(cId, wId)
-      .then(setWorkoutProgress)
-      .catch(() => { });
-  };
-
-  const handleResetProgress = async () => {
-    try {
-      await resetWorkoutProgress(cId, wId);
-      const freshProgress = await getWorkoutProgress(cId, wId).catch(() => null);
-      setWorkoutProgress(freshProgress);
-      toast.success('Прогресс тренировки сброшен');
-    } catch (error) {
-      toast.error(getAxiosErrorMessage(error, 'Ошибка при сбросе прогресса'));
-    }
-  };
+  const initialProgressData = workoutProgress?.progressData ?? [];
 
   return (
     <>
       <Header />
-      <div className={styles.page}>
-        <h1 className={styles.title}>{course.nameRU}</h1>
+      <div className={`center ${styles.page}`}>
+        <h1 className={styles.title}>{workout.name}</h1>
+
         <section className={styles.videoSection}>
           <WorkoutVideo videoUrl={workout.video} title={workout.name} />
         </section>
+
         <section className={styles.exercisesSection}>
           <WorkoutExercises
-            workoutTitle={String(workoutOrder)}
+            workoutTitle={workout.name}
             exercises={workout.exercises ?? []}
             progress={workoutProgress}
-            onFillProgress={handleFillProgress}
+            onFillProgress={() => setIsProgressModalOpen(true)}
             onResetProgress={handleResetProgress}
           />
         </section>
-        <Link href="/profile" className={`btn ${styles.backToProfile}`}>
-          <span className={styles.backToProfile__arrow}>←</span> В профиль
-        </Link>
+
+        <div className={styles.backToProfileWrapper}>
+          <Link href="/profile" className={`btn ${styles.backToProfile}`}>
+            <span className={styles.backToProfile__arrow}>←</span> В профиль
+          </Link>
+        </div>
+
+        <ProgressModal
+          isOpen={isProgressModalOpen}
+          courseId={courseId!}
+          workoutId={workoutId!}
+          exercises={workout.exercises ?? []}
+          initialProgressData={initialProgressData}
+          onSave={refreshProgress}
+          onClose={() => setIsProgressModalOpen(false)}
+          onSaveSuccess={() => setIsSuccessModalOpen(true)}
+        />
+
+        <SuccessConfirmModal
+          isOpen={isSuccessModalOpen}
+          message="Прогресс сохранён"
+          onClose={() => setIsSuccessModalOpen(false)}
+        />
       </div>
-      <ProgressModal
-        isOpen={isProgressModalOpen}
-        courseId={cId}
-        workoutId={wId}
-        exercises={workout.exercises ?? []}
-        initialProgressData={workoutProgress?.progressData ?? []}
-        onSave={handleProgressSaved}
-        onClose={() => setIsProgressModalOpen(false)}
-        onSaveSuccess={() => {
-          setIsProgressModalOpen(false);
-          setIsSuccessModalOpen(true);
-        }}
-      />
-      <SuccessConfirmModal
-        isOpen={isSuccessModalOpen}
-        message="Прогресс сохранён"
-        onClose={() => setIsSuccessModalOpen(false)}
-      />
     </>
   );
 }
@@ -161,7 +158,9 @@ export default function WorkoutPage() {
     <Suspense fallback={
       <>
         <Header />
-        <div className={styles.page}><p>Загрузка...</p></div>
+        <div className={`center ${styles.page}`}>
+          <p>Загрузка...</p>
+        </div>
       </>
     }>
       <WorkoutContent />

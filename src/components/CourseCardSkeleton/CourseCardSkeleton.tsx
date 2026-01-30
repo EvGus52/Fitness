@@ -7,16 +7,18 @@ import styles from './courseCardSkeleton.module.css';
 export default function CourseCardSkeleton() {
   return (
     <div className={styles.card}>
-      <Skeleton className={styles.image} height={325} borderRadius={0} />
+      <div className={styles.imageWrapper}>
+        <Skeleton className={styles.skeletonImage} borderRadius={0} />
+      </div>
       <div className={styles.content}>
-        <Skeleton height={32} width="80%" style={{ marginBottom: 20 }} />
+        <Skeleton className={styles.skeletonTitle} />
         <div className={styles.info}>
-          <Skeleton height={40} width={100} borderRadius={50} />
-          <Skeleton height={40} width={140} borderRadius={50} />
-          <Skeleton height={40} width={90} borderRadius={50} />
+          <Skeleton className={`${styles.skeletonPill} ${styles.skeletonPill_width_100}`} />
+          <Skeleton className={`${styles.skeletonPill} ${styles.skeletonPill_width_140}`} />
+          <Skeleton className={`${styles.skeletonPill} ${styles.skeletonPill_width_90}`} />
         </div>
-        <Skeleton height={6} width="100%" borderRadius={50} style={{ marginTop: 20 }} />
-        <Skeleton height={44} width="100%" borderRadius={46} style={{ marginTop: 20 }} />
+        <Skeleton className={styles.skeletonBar} />
+        <Skeleton className={styles.skeletonButton} />
       </div>
     </div>
   );

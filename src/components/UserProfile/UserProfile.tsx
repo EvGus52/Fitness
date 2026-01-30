@@ -23,6 +23,7 @@ export default function UserProfile({ onLogout }: UserProfileProps) {
     const [userCourses, setUserCourses] = useState<Course[]>([]);
     const [coursesProgress, setCoursesProgress] = useState<Record<string, number>>({});
     const [isLoadingCourses, setIsLoadingCourses] = useState(false);
+    const [coursesError, setCoursesError] = useState<string | null>(null);
 
     // Извлекаем имя из email (часть до @)
     const userName = user?.email ? user.email.split('@')[0] : '';
@@ -34,6 +35,7 @@ export default function UserProfile({ onLogout }: UserProfileProps) {
         } else {
             setUserCourses([]);
             setCoursesProgress({});
+            setCoursesError(null);
         }
     }, [user?.selectedCourses]); // eslint-disable-line react-hooks/exhaustive-deps -- loadUserCourses depends on user, re-running on user change is intended
 
@@ -41,6 +43,7 @@ export default function UserProfile({ onLogout }: UserProfileProps) {
         if (!user?.selectedCourses || user.selectedCourses.length === 0) return;
 
         setIsLoadingCourses(true);
+        setCoursesError(null);
         try {
             // Загружаем все курсы
             const allCourses = await getCourses();
@@ -72,6 +75,7 @@ export default function UserProfile({ onLogout }: UserProfileProps) {
             setCoursesProgress(progressMap);
         } catch (error) {
             console.error('Ошибка при загрузке курсов пользователя:', error);
+            setCoursesError('Не удалось загрузить курсы');
         } finally {
             setIsLoadingCourses(false);
         }
@@ -122,6 +126,8 @@ export default function UserProfile({ onLogout }: UserProfileProps) {
                         <CourseCardSkeleton />
                         <CourseCardSkeleton />
                     </>
+                ) : coursesError ? (
+                    <p className={styles.errorMessage}>{coursesError}</p>
                 ) : (
                     userCourses.map((course) => (
                         <UserCourseCard

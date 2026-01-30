@@ -1,25 +1,65 @@
+/* Разметка и размеры — из общих стилей карточки */
 .card {
-  background: #fff;
-  border-radius: 30px;
-  overflow: hidden;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  composes: card from '../../styles/courseCardBase.module.css';
   display: flex;
   flex-direction: column;
 }
 
-.image {
-  display: block !important;
+.imageWrapper {
+  composes: card__image__wrapper from '../../styles/courseCardBase.module.css';
 }
 
 .content {
-  padding: 30px;
+  composes: card__content from '../../styles/courseCardBase.module.css';
   display: flex;
   flex-direction: column;
   gap: 20px;
 }
 
 .info {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
+  composes: card__info from '../../styles/courseCardBase.module.css';
+}
+
+/* Скелетон заполняет родителя — размеры из класса, не из пропсов */
+.skeletonImage {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.skeletonTitle {
+  height: 32px;
+  width: 80%;
+  border-radius: 4px;
+}
+
+.skeletonPill {
+  height: 40px;
+  border-radius: 50px;
+}
+
+.skeletonPill_width_100 {
+  width: 100px;
+}
+
+.skeletonPill_width_140 {
+  width: 140px;
+}
+
+.skeletonPill_width_90 {
+  width: 90px;
+}
+
+.skeletonBar {
+  height: 6px;
+  width: 100%;
+  border-radius: 50px;
+  margin-top: 20px;
+}
+
+.skeletonButton {
+  height: 44px;
+  width: 100%;
+  border-radius: 46px;
+  margin-top: 20px;
 }

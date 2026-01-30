@@ -71,3 +71,10 @@
   gap: 40px;
   margin-bottom: 280px;
 }
+
+.errorMessage {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 40px;
+  margin: 0;
+}
