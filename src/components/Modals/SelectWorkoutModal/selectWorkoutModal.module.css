@@ -21,6 +21,8 @@
 }
 
 .modal__block {
+  width: 100%;
+  max-width: 460px;
   position: relative;
   z-index: 1001;
   border-radius: 30px;
@@ -43,6 +45,7 @@
   font-weight: 400;
   line-height: 110%;
   margin-bottom: 48px;
+  text-align: center;
 }
 
 .workoutList {
@@ -63,9 +66,11 @@
   border-radius: 3px;
 }
 
+/* height/min-height/max-height у thumb в WebKit не поддерживаются — размер считает браузер */
 .workoutList::-webkit-scrollbar-thumb {
-  background: rgba(0, 0, 0, 0.2);
-  border-radius: 3px;
+  width: 6px;
+  background: rgba(0, 0, 0, 1);
+  border-radius: 10px;
 }
 
 .workoutItem {
@@ -73,7 +78,7 @@
   align-items: flex-start;
   gap: 16px;
   padding: 16px 0;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  border-bottom: 1px solid rgba(196, 196, 196, 1);
   cursor: pointer;
   transition: background 0.2s ease;
 }
@@ -126,6 +131,9 @@
 .workoutItem__title {
   font-size: 24px;
   font-weight: 400;
+  line-height: 110%;
+  max-width: 270px;
+
 }
 
 .modal__startBtn {
@@ -134,4 +142,10 @@
 
 .modal__startBtn button {
   width: 100%;
+}
+
+@media (max-width: 767px) {
+  .modal__block {
+    max-width: 343px;
+  }
 }

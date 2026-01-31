@@ -78,3 +78,15 @@
 .difficulty__bar__active {
   composes: difficulty__bar__active from '../../styles/courseCardBase.module.css';
 }
+
+@media (max-width: 767px) {
+  .card {
+    grid-column: span 4;
+  }
+
+  .card__title {
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 110%;
+  }
+}

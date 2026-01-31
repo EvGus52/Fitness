@@ -47,31 +47,33 @@ export default function CourseEnrollment({
   return (
     <div className={styles.enrollment}>
       <div className="center">
-        <div className={styles.content}>
-          <div className={styles.textBlock}>
-            <h2 className={styles.title}>Начните путь к новому телу</h2>
-            <ul className={styles.benefitsList}>
-              <li className={styles.benefitItem}>
-                проработка всех групп мышц
-              </li>
-              <li className={styles.benefitItem}>тренировка суставов</li>
-              <li className={styles.benefitItem}>
-                улучшение циркуляции крови
-              </li>
-              <li className={styles.benefitItem}>
-                упражнения заряжают бодростью
-              </li>
-              <li className={styles.benefitItem}>
-                помогают противостоять стрессам
-              </li>
-            </ul>
-            <button
-              onClick={handleButtonClick}
-              className="btn btn-full"
-              disabled={isAdded}
-            >
-              {buttonText}
-            </button>
+        <div className={styles.enrollmentInner}>
+          <div className={styles.content}>
+            <div className={styles.textBlock}>
+              <h2 className={styles.title}>Начните путь к новому телу</h2>
+              <ul className={styles.benefitsList}>
+                <li className={styles.benefitItem}>
+                  проработка всех групп мышц
+                </li>
+                <li className={styles.benefitItem}>тренировка суставов</li>
+                <li className={styles.benefitItem}>
+                  улучшение циркуляции крови
+                </li>
+                <li className={styles.benefitItem}>
+                  упражнения заряжают бодростью
+                </li>
+                <li className={styles.benefitItem}>
+                  помогают противостоять стрессам
+                </li>
+              </ul>
+              <button
+                onClick={handleButtonClick}
+                className={`btn btn-full ${styles.enrollmentBtn}`}
+                disabled={isAdded}
+              >
+                {buttonText}
+              </button>
+            </div>
           </div>
           <div className={styles.imageBlock}>
             <div className={styles.lineWrapper}>
@@ -80,7 +82,14 @@ export default function CourseEnrollment({
                 alt=""
                 width={670}
                 height={390}
-                className={styles.line}
+                className={`${styles.line} ${styles.lineDesktop}`}
+              />
+              <Image
+                src="/icon/linemob.svg"
+                alt=""
+                width={430}
+                height={250}
+                className={`${styles.line} ${styles.lineMobile}`}
               />
             </div>
             <div className={styles.menWrapper}>

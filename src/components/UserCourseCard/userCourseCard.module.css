@@ -110,3 +110,11 @@
 .card__actionBtn {
   margin-top: 20px;
 }
+
+@media (max-width: 767px) {
+  .card__title {
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 110%;
+  }
+}

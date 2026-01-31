@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { AxiosError } from 'axios';
 import { useAuthModal } from '@/contexts/AuthModalContext';
-import styles from './signinModal.module.css';
+import styles from './authModal.module.css';
 
 import { loginUser, saveToken } from '@/services/auth/authApi';
 import { toast } from 'react-toastify';
@@ -145,13 +145,13 @@ export default function SigninModal() {
         <button
           onClick={onSubmit}
           disabled={isLoading}
-          className="btn btn-full btn-padding-sm"
+          className="btn btn-full"
         >
           {isLoading ? 'Загрузка...' : 'Войти'}
         </button>
         <button
           onClick={openSignup}
-          className="btn-secondary btn-full btn-padding-sm"
+          className="btn-secondary btn-full"
         >
           Зарегистрироваться
         </button>

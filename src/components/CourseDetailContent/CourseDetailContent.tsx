@@ -10,6 +10,7 @@ import { CourseFromAPI } from '@/sharedTypes/sharedTypes';
 import { transformCourseForDetailPage } from '@/utils/courseUtils';
 import { getAxiosErrorMessage } from '@/utils/errorUtils';
 import { useUser } from '@/contexts/UserContext';
+import styles from './courseDetailContent.module.css';
 
 export default function CourseDetailContent() {
   const searchParams = useSearchParams();
@@ -60,7 +61,7 @@ export default function CourseDetailContent() {
   }
 
   return (
-    <>
+    <div className={styles.pageWrapper}>
       <Header />
       {courseWithData ? (
         <>
@@ -76,6 +77,6 @@ export default function CourseDetailContent() {
           <p>Курс не найден</p>
         </div>
       )}
-    </>
+    </div>
   );
 }

@@ -6,10 +6,10 @@
 }
 
 .title {
-  font-size: 24px;
-  font-weight: 600;
-  color: #000;
-  margin: 0 0 24px 0;
+  font-size: 32px;
+  font-weight: 500;
+  line-height: 110%;
+  margin-bottom: 20px;
 }
 
 .emptyMessage {
@@ -22,15 +22,17 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 20px 60px;
-  margin-bottom: 24px;
+  margin-bottom: 40px;
 }
 
 .exerciseItem {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  font-size: 16px;
-  color: #000;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 110%;
+
 }
 
 .exerciseItem__header {
@@ -48,7 +50,9 @@
 
 .exerciseItem__percent {
   flex-shrink: 0;
-  font-weight: 500;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 110%;
 }
 
 .progress__bar {

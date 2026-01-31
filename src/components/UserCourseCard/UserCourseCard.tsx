@@ -70,7 +70,7 @@ export default function UserCourseCard({
           alt={course.nameRU}
           fill
           className={styles.card__image}
-          sizes="(max-width: 768px) 100vw, 33vw"
+          sizes="(max-width: 767px) 100vw, 33vw"
         />
         <button
           className={styles.card__remove}

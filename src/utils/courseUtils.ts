@@ -69,18 +69,19 @@ export function calculateCourseProgress(
   return Math.round((completedWorkouts / totalWorkoutsInCourse) * 100);
 }
 
-/** Курс для страницы детали: только поля, используемые AboutCourse и CourseEnrollment (id, nameRU, image, suitableFor, directions) */
+/** Курс для страницы детали: image — десктоп (skill card по order), imageMobile — мобилка (то же, что на карточке курса). */
 export type CourseForDetailPage = {
   id: string;
   nameRU: string;
   image: string;
+  imageMobile?: string;
   suitableFor?: string[];
   directions?: string[];
 };
 
 /**
  * Преобразование курса из API в формат для страницы детали курса (/courses?id=...).
- * Берутся только id, nameRU, image (по order), suitableFor, directions — остальное на странице не используется.
+ * image — skill card по order (десктоп), imageMobile — getCourseImage (мобилка, как на карточке).
  */
 export function transformCourseForDetailPage(
   course: CourseFromAPI,
@@ -89,6 +90,7 @@ export function transformCourseForDetailPage(
     id: course._id,
     nameRU: course.nameRU,
     image: `/skill card ${course.order}.png`,
+    imageMobile: getCourseImage(course.nameEN, course.nameRU),
     suitableFor: course.fitting ?? [],
     directions: course.directions ?? [],
   };

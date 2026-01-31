@@ -21,11 +21,20 @@
   object-fit: cover;
 }
 
+.skillCardImageDesktop {
+  display: block;
+}
+
+.skillCardImageMobile {
+  display: none;
+}
+
 .sectionTitle {
   font-size: 40px;
   font-weight: 600;
   margin-bottom: 40px;
   text-align: left;
+  line-height: 110%;
 }
 
 .suitableFor {
@@ -34,11 +43,13 @@
 
 .suitableForList {
   display: flex;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
   gap: 17px;
 }
 
 .suitableForItem {
+  flex: 1 1 0;
+  min-width: 0;
   background: linear-gradient(135deg, #151720 0%, #1e212e 100%);
   border-radius: 28px;
   padding: 20px;
@@ -60,11 +71,21 @@
   color: rgba(255, 255, 255, 1);
   font-size: 23px;
   line-height: 110%;
+  min-width: 0;
+  word-wrap: break-word;
 }
 
 /* Блок "Направления" */
 .directions {
   margin-bottom: 102px;
+}
+
+.directionsTitle {
+  font-size: 40px;
+  font-weight: 600;
+  line-height: 110%;
+  margin-bottom: 40px;
+  text-align: left;
 }
 
 .directionsBar {
@@ -84,4 +105,60 @@
 
 .directionText {
   font-size: 24px;
+}
+
+@media (max-width: 767px) {
+  .topSection {
+    margin-bottom: 40px;
+  }
+
+  .skillCardImageDesktop {
+    display: none;
+  }
+
+  .skillCardImageMobile {
+    display: block;
+  }
+
+  .sectionTitle {
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 110%;
+    margin-bottom: 24px;
+  }
+
+  .suitableFor {
+    margin-bottom: 40px;
+  }
+
+  .suitableForList {
+    flex-direction: column;
+  }
+
+  .itemText {
+    font-size: 18px;
+    font-weight: 400;
+  }
+
+  .itemNumber {
+    font-size: 75px;
+    font-weight: 500;
+    line-height: 135%;
+  }
+
+  .directionsTitle {
+    font-size: 24px;
+    font-weight: 500;
+    margin-bottom: 24px;
+  }
+
+  .directions {
+    margin-bottom: 156px;
+  }
+
+  .directionsBar {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
 }

@@ -4,7 +4,7 @@ import { ChangeEvent, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { useAuthModal } from '@/contexts/AuthModalContext';
-import styles from './signupModal.module.css';
+import styles from './authModal.module.css';
 
 import { regUser } from '@/services/auth/regApi';
 import { loginUser, saveToken } from '@/services/auth/authApi';
@@ -198,13 +198,13 @@ export default function SignupModal() {
         <button
           onClick={onSubmit}
           disabled={isLoading}
-          className="btn btn-full btn-padding-sm"
+          className="btn btn-full"
         >
           {isLoading ? 'Загрузка...' : 'Зарегистрироваться'}
         </button>
         <button
           onClick={openSignin}
-          className="btn-secondary btn-full btn-padding-sm"
+          className="btn-secondary btn-full"
         >
           Войти
         </button>

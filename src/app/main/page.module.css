@@ -1,0 +1,18 @@
+.scrollTopWrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.scrollTopBtn {
+  margin-bottom: 80px;
+}
+
+@media (max-width: 767px) {
+  .scrollTopWrapper {
+    justify-content: flex-end;
+  }
+
+  .scrollTopBtn {
+    margin-bottom: 20px;
+  }
+}

@@ -75,7 +75,7 @@ export default function Header() {
                 </span>
               </div>
             ) : (
-              <button onClick={openSignin} className="btn">
+              <button onClick={openSignin} className={`btn ${styles.loginBtn}`}>
                 Войти
               </button>
             )}

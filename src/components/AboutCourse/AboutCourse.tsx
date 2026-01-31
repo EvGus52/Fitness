@@ -19,7 +19,14 @@ export default function AboutCourse({ course }: AboutCourseProps) {
             alt={course.nameRU}
             width={1160}
             height={310}
-            className={styles.skillCardImage}
+            className={`${styles.skillCardImage} ${styles.skillCardImageDesktop}`}
+          />
+          <Image
+            src={course.imageMobile || course.image || `/skill card 1.png`}
+            alt={course.nameRU}
+            width={1160}
+            height={310}
+            className={`${styles.skillCardImage} ${styles.skillCardImageMobile}`}
           />
         </div>
       </div>
@@ -45,6 +52,7 @@ export default function AboutCourse({ course }: AboutCourseProps) {
           {/* Блок "Направления" */}
           {course.directions && course.directions.length > 0 && (
             <div className={styles.directions}>
+              <h2 className={styles.directionsTitle}>Направления</h2>
               <div className={styles.directionsBar}>
                 {course.directions.map((direction, index) => (
                   <div key={index} className={styles.directionItem}>

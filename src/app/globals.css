@@ -120,3 +120,15 @@ a {
 .btn-mb-80 {
   margin-bottom: 80px;
 }
+
+/* Ширина тоста на мобильной */
+@media (max-width: 767px) {
+  .Toastify__toast-container {
+    width: calc(100vw - 40px);
+    max-width: 360px;
+  }
+
+  .Toastify__toast {
+    width: 100%;
+  }
+}

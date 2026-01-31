@@ -1,35 +1,59 @@
 .titleBlock {
-    margin-bottom: 50px;
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 22px;
+  margin-bottom: 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 22px;
 }
 
 .title {
-    font-size: 60px;
-    font-weight: 500;
-    line-height: 100%;
+  font-size: 60px;
+  font-weight: 500;
+  line-height: 100%;
 }
 
 .bubble__image {
-    object-fit: contain;
+  object-fit: contain;
 }
 
 .courses__grid {
-    display: grid;
-    grid-template-columns: repeat(12, 1fr);
-    gap: 40px;
-    margin-bottom: 34px;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 40px;
+  margin-bottom: 34px;
 }
 
 .skeletonCardWrapper {
-    grid-column: span 4;
+  grid-column: span 4;
 }
 
 .errorMessage {
-    grid-column: 1 / -1;
-    text-align: center;
-    padding: 40px;
-    margin: 0;
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 40px;
+  margin: 0;
+}
+
+@media (max-width: 767px) {
+  .bubble {
+    display: none;
+  }
+
+  .titleBlock {
+    margin-bottom: 34px;
+  }
+
+  .title {
+    font-size: 32px;
+    font-weight: 500;
+    line-height: 110%;
+  }
+
+  .courses__grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .skeletonCardWrapper {
+    grid-column: span 4;
+  }
 }

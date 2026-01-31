@@ -38,10 +38,10 @@ export default function ConfirmLogoutModal() {
         <div className={styles.modal__content}>
           <p className={styles.message}>Вы точно хотите выйти из профиля?</p>
           <div className={styles.buttons}>
-            <button onClick={handleYesClick} className="btn btn-full btn-padding-sm">
+            <button onClick={handleYesClick} className="btn">
               Да
             </button>
-            <button onClick={handleNoClick} className="btn-secondary btn-full btn-padding-sm">
+            <button onClick={handleNoClick} className="btn-secondary">
               Нет
             </button>
           </div>

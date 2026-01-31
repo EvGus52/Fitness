@@ -8,6 +8,7 @@ import { Course } from '@/sharedTypes/sharedTypes';
 import { transformCourse } from '@/utils/courseUtils';
 import { getAxiosErrorMessage } from '@/utils/errorUtils';
 import { useUser } from '@/contexts/UserContext';
+import styles from './page.module.css';
 
 export default function Home() {
   const [courses, setCourses] = useState<Course[]>([]);
@@ -49,11 +50,11 @@ export default function Home() {
         onCourseRemoved={refreshUser}
       />
       {!isLoading && !error && (
-        <div style={{ display: 'flex', justifyContent: 'center' }}>
+        <div className={`center ${styles.scrollTopWrapper}`}>
           <a
             href="#header"
             onClick={handleScrollToTop}
-            className="btn btn-mb-80"
+            className={`btn ${styles.scrollTopBtn}`}
           >
             Наверх <span style={{ verticalAlign: 'text-top', lineHeight: 1, display: 'inline-block' }}>↑</span>
           </a>

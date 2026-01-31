@@ -57,6 +57,7 @@ describe('getAxiosErrorToastMessage', () => {
       undefined,
       makeAxiosResponse({ message: 'Invalid password' }, 401),
     );
+
     expect(getAxiosErrorToastMessage(err, 'Fallback')).toBe('Invalid password');
   });
 });

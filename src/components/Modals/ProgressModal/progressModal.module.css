@@ -30,6 +30,8 @@
   max-height: 90vh;
   display: flex;
   flex-direction: column;
+  max-width: 426px;
+  ;
 }
 
 .modal__content {
@@ -52,28 +54,28 @@
 }
 
 .modal__content::-webkit-scrollbar-thumb {
-  background: rgba(0, 0, 0, 0.2);
-  border-radius: 3px;
+  background: rgba(0, 0, 0, 1);
+  border-radius: 10px;
 }
 
 .modal__title {
-  font-size: 24px;
-  font-weight: 700;
-  color: #000;
-  margin: 0 0 8px 0;
+  font-size: 32px;
+  font-weight: 400;
+  line-height: 110%;
+  margin-bottom: 24px;
   flex-shrink: 0;
 }
 
 .field {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 10px;
 }
 
 .field__label {
-  font-size: 16px;
-  color: #000;
-  margin: 0;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 110%;
 }
 
 .field__input {
@@ -82,9 +84,11 @@
   padding: 14px 16px;
   border: 1px solid rgba(208, 206, 206, 1);
   border-radius: 8px;
-  font-size: 16px;
-  color: #000;
   outline: none;
+  color: rgba(0, 0, 0, 1);
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 110%;
 }
 
 .field__input:focus {
@@ -99,6 +103,7 @@
 
 .field__input[type='number'] {
   -moz-appearance: textfield;
+  appearance: textfield;
 }
 
 .saveBtn {
@@ -108,4 +113,14 @@
 
 .saveBtn button {
   width: 100%;
+}
+
+@media (max-width: 767px) {
+  .modal__block {
+    max-width: 343px;
+  }
+
+  .modal__content {
+    min-width: 0;
+  }
 }

@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect } from 'react';
 import { useModalBodyLock } from '@/hooks/useModalBodyLock';
 import Image from 'next/image';
 import styles from './successConfirmModal.module.css';
@@ -10,12 +11,20 @@ interface SuccessConfirmModalProps {
   onClose: () => void;
 }
 
+const AUTO_CLOSE_MS = 3000;
+
 export default function SuccessConfirmModal({
   isOpen,
-  message = 'Прогресс сохранён',
+  message = 'Ваш прогресс засчитан!',
   onClose,
 }: SuccessConfirmModalProps) {
   useModalBodyLock(isOpen);
+
+  useEffect(() => {
+    if (!isOpen) return;
+    const timer = window.setTimeout(onClose, AUTO_CLOSE_MS);
+    return () => window.clearTimeout(timer);
+  }, [isOpen, onClose]);
 
   if (!isOpen) return null;
 
@@ -28,6 +37,7 @@ export default function SuccessConfirmModal({
       <div className={styles.overlay} onClick={handleOverlayClick} />
       <div className={styles.modal__block} onClick={(e) => e.stopPropagation()}>
         <div className={styles.modal__content}>
+          <p className={styles.modal__message}>{message}</p>
           <Image
             src="/icon/ok.svg"
             alt=""
@@ -35,16 +45,6 @@ export default function SuccessConfirmModal({
             height={56}
             className={styles.modal__icon}
           />
-          <p className={styles.modal__message}>{message}</p>
-          <div className={styles.modal__btn}>
-            <button
-              type="button"
-              onClick={onClose}
-              className="btn btn-full btn-padding-sm"
-            >
-              Ок
-            </button>
-          </div>
         </div>
       </div>
     </div>

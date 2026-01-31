@@ -5,6 +5,10 @@
   margin-bottom: 60px;
 }
 
+.enrollmentInner {
+  position: relative;
+  width: 100%;
+}
 
 .content {
   display: flex;
@@ -23,6 +27,7 @@
   flex-direction: column;
   max-width: 440px;
   gap: 28px;
+
 }
 
 .title {
@@ -55,13 +60,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 3;
   /* обрезка только снизу: расширяем область вверх/влево/вправо, низ — по границе блока */
   clip-path: inset(-100% -100% 0 -100%);
 }
 
 .lineWrapper {
-   position: absolute;
-  z-index: 1;
+  position: absolute;
+  z-index: 3;
   top: 240px;
   left: -136px;
 
@@ -72,9 +78,17 @@
   position: absolute;
 }
 
+.lineDesktop {
+  display: block;
+}
+
+.lineMobile {
+  display: none;
+}
+
 .menWrapper {
   position: relative;
-  z-index: 2;
+  z-index: 4;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -82,4 +96,69 @@
 
 .men {
   object-fit: contain;
+}
+
+@media (max-width: 767px) {
+  .enrollment {
+    margin-bottom: 30px;
+
+  }
+
+  .content {
+    padding: 30px;
+  }
+
+  .title {
+    font-size: 32px;
+    font-weight: 500;
+    line-height: 110%;
+  }
+
+  .benefitItem {
+    font-size: 18px;
+    font-weight: 400;
+  }
+
+  .enrollmentBtn {
+    font-size: 16px;
+    font-weight: 400;
+  }
+
+  .imageBlock {
+    top: -260px;
+    right: -90px;
+    height: 347px;
+    clip-path: none;
+    z-index: 1;
+  }
+
+  .lineWrapper {
+    top: 38%;
+    left: -70%;
+
+  }
+
+  .lineDesktop {
+    display: none;
+  }
+
+  .lineMobile {
+    display: block;
+  }
+
+  .line {
+    width: 430px;
+    height: 250px;
+    object-fit: contain;
+  }
+
+  .menWrapper {
+    height: 347px;
+  }
+
+  .men {
+    width: 334px;
+    height: 347px;
+    object-fit: contain;
+  }
 }

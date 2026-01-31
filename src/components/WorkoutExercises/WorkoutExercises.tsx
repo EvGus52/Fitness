@@ -27,7 +27,7 @@ export default function WorkoutExercises({
 
   return (
     <section className={styles.card}>
-      <h2 className={styles.title}>Упражнения тренировки {workoutTitle}</h2>
+      <h2 className={styles.title}>Упражнения тренировки «{workoutTitle}»</h2>
       {list.length === 0 ? (
         <p className={styles.emptyMessage}>В этой тренировке пока нет упражнений</p>
       ) : (

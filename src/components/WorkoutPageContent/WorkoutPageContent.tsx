@@ -144,7 +144,7 @@ export default function WorkoutPageContent() {
 
         <SuccessConfirmModal
           isOpen={isSuccessModalOpen}
-          message="Прогресс сохранён"
+          message="Ваш прогресс засчитан!"
           onClose={() => setIsSuccessModalOpen(false)}
         />
       </div>

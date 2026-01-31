@@ -29,19 +29,26 @@
 }
 
 .modal__content {
-  width: 266px;
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 24px;
 }
 
 .message {
   font-size: 18px;
-  line-height: 24px;
+  line-height: 110%;
 }
 
 .buttons {
   display: flex;
   flex-direction: column;
   gap: 10px;
+  width: 120px;
+}
+
+@media (max-width: 767px) {
+  .modal__block {
+    max-width: 343px;
+  }
 }
