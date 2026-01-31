@@ -61,7 +61,6 @@ export default function ProgressModal({
   const handleSubmit = async () => {
     setIsSaving(true);
     try {
-      // Суммируем введённые значения с предыдущим прогрессом
       const totalProgress = exercises.map((_, i) => {
         const prev = initialProgressData[i] ?? 0;
         const added = values[i] ?? 0;

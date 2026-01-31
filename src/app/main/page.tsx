@@ -24,7 +24,6 @@ export default function Home() {
         setIsLoading(false);
       })
       .catch((err) => {
-        console.error('Ошибка при загрузке курсов:', err);
         setError(getAxiosErrorMessage(err, 'Не удалось загрузить курсы'));
         setIsLoading(false);
       });

@@ -40,7 +40,6 @@ export default function UserCourseCard({
 
   const handleActionClick = async () => {
     if (progress === 100) {
-      // Начать заново - сбросить прогресс
       try {
         await resetCourseProgress(course.id);
         toast.success('Прогресс курса сброшен!');
@@ -51,7 +50,6 @@ export default function UserCourseCard({
         toast.error(getAxiosErrorMessage(error, 'Ошибка при сбросе прогресса'));
       }
     } else {
-      // Начать тренировки или Продолжить — открыть модалку выбора тренировки
       openSelectWorkoutModal(course.id, course.nameRU);
     }
   };

@@ -2,7 +2,6 @@
   width: 100%;
 }
 
-/* Верхняя секция - изображение skill card */
 .topSection {
   width: 100%;
   display: flex;
@@ -27,6 +26,10 @@
 
 .skillCardImageMobile {
   display: none;
+}
+
+.bottomSection {
+  width: 100%;
 }
 
 .sectionTitle {
@@ -75,7 +78,6 @@
   word-wrap: break-word;
 }
 
-/* Блок "Направления" */
 .directions {
   margin-bottom: 102px;
 }
@@ -103,8 +105,57 @@
   gap: 8px;
 }
 
+.directionPlus {
+  flex-shrink: 0;
+  object-fit: contain;
+}
+
 .directionText {
   font-size: 24px;
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .topSection {
+    margin-bottom: 50px;
+  }
+
+  .sectionTitle {
+    font-size: 32px;
+    font-weight: 600;
+    margin-bottom: 32px;
+  }
+
+  .suitableFor {
+    margin-bottom: 50px;
+  }
+
+  .itemText {
+    font-size: 18px;
+  }
+
+  .itemNumber {
+    font-size: 65px;
+  }
+
+  .directionsTitle {
+    font-size: 32px;
+    font-weight: 600;
+    margin-bottom: 32px;
+  }
+
+  .directions {
+    margin-bottom: 80px;
+  }
+
+  .directionsBar {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    padding: 24px;
+  }
+
+  .directionText {
+    font-size: 20px;
+  }
 }
 
 @media (max-width: 767px) {

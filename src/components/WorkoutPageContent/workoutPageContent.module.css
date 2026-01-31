@@ -1,4 +1,3 @@
-/* Центрирование через глобальный класс .center; здесь только отступ снизу */
 .page {
   padding-bottom: 40px;
 }
@@ -38,4 +37,32 @@
 
 .exercisesSection {
   margin-bottom: 40px;
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .title {
+    font-size: 32px;
+    font-weight: 600;
+    margin-bottom: 32px;
+  }
+
+  .videoSection {
+    margin-bottom: 32px;
+  }
+}
+
+@media (max-width: 767px) {
+  .title {
+    margin-bottom: 24px;
+    font-size: 24px;
+    font-weight: 500;
+  }
+
+  .videoSection {
+    margin-bottom: 24px;
+  }
+
+  .backToProfileWrapper {
+    justify-content: flex-end;
+  }
 }

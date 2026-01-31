@@ -111,6 +111,14 @@
   margin-top: 20px;
 }
 
+@media (min-width: 768px) and (max-width: 1023px) {
+  .card__title {
+    font-size: 28px;
+    font-weight: 500;
+    line-height: 110%;
+  }
+}
+
 @media (max-width: 767px) {
   .card__title {
     font-size: 24px;

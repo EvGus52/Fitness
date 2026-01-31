@@ -69,7 +69,6 @@ export function calculateCourseProgress(
   return Math.round((completedWorkouts / totalWorkoutsInCourse) * 100);
 }
 
-/** Курс для страницы детали: image — десктоп (skill card по order), imageMobile — мобилка (то же, что на карточке курса). */
 export type CourseForDetailPage = {
   id: string;
   nameRU: string;

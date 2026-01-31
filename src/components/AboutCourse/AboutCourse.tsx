@@ -11,7 +11,6 @@ interface AboutCourseProps {
 export default function AboutCourse({ course }: AboutCourseProps) {
   return (
     <div className={styles.aboutCourse}>
-      {/* Верхняя секция - изображение skill card */}
       <div className={styles.topSection}>
         <div className={`center ${styles.topContainer}`}>
           <Image
@@ -31,10 +30,8 @@ export default function AboutCourse({ course }: AboutCourseProps) {
         </div>
       </div>
 
-      {/* Нижняя секция - черный фон */}
       <div className={styles.bottomSection}>
         <div className="center">
-          {/* Блок "Подойдет для вас, если:" */}
           {course.suitableFor && course.suitableFor.length > 0 && (
             <div className={styles.suitableFor}>
               <h2 className={styles.sectionTitle}>Подойдет для вас, если:</h2>
@@ -49,7 +46,6 @@ export default function AboutCourse({ course }: AboutCourseProps) {
             </div>
           )}
 
-          {/* Блок "Направления" */}
           {course.directions && course.directions.length > 0 && (
             <div className={styles.directions}>
               <h2 className={styles.directionsTitle}>Направления</h2>

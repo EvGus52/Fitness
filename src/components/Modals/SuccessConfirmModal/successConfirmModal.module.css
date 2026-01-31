@@ -53,6 +53,17 @@
   margin: 0;
 }
 
+@media (min-width: 768px) and (max-width: 1023px) {
+  .modal__block {
+    max-width: 380px;
+    padding: 36px;
+  }
+
+  .modal__message {
+    font-size: 32px;
+  }
+}
+
 @media (max-width: 767px) {
   .modal__block {
     max-width: 343px;

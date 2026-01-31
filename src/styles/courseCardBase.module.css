@@ -1,5 +1,3 @@
-/* Общие стили карточек курсов (CourseCard, UserCourseCard). Специфичные — в модулях компонентов. */
-
 .card {
   background: #fff;
   border-radius: 30px;
@@ -42,6 +40,7 @@
 .card__title {
   font-size: 32px;
   font-weight: 500;
+  line-height: 110%;
 }
 
 .card__info {

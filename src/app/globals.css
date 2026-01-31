@@ -33,14 +33,12 @@ a {
   text-decoration: none;
 }
 
-/* Общий контейнер для центрирования контента */
 .center {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 20px;
 }
 
-/* Основная кнопка */
 .btn {
   border-radius: 46px;
   font-size: 18px;
@@ -69,7 +67,6 @@ a {
   cursor: not-allowed;
 }
 
-/* Вторичная кнопка */
 .btn-secondary {
   border-radius: 46px;
   font-size: 18px;
@@ -100,7 +97,6 @@ a {
   cursor: not-allowed;
 }
 
-/* Модификаторы для кнопок */
 .btn-full {
   width: 100%;
 }
@@ -109,19 +105,17 @@ a {
   padding: 12px 0;
 }
 
-.btn-mb-20 {
-  margin-bottom: 20px;
+@media (min-width: 768px) and (max-width: 1023px) {
+  .Toastify__toast-container {
+    width: calc(100vw - 48px);
+    max-width: 420px;
+  }
+
+  .Toastify__toast {
+    width: 100%;
+  }
 }
 
-.btn-mt-10 {
-  margin-top: 10px;
-}
-
-.btn-mb-80 {
-  margin-bottom: 80px;
-}
-
-/* Ширина тоста на мобильной */
 @media (max-width: 767px) {
   .Toastify__toast-container {
     width: calc(100vw - 40px);

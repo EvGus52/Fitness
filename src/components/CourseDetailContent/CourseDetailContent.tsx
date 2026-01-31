@@ -27,7 +27,6 @@ export default function CourseDetailContent() {
         setIsLoading(false);
       })
       .catch((err) => {
-        console.error('Ошибка при загрузке курсов:', err);
         setError(getAxiosErrorMessage(err, 'Не удалось загрузить курсы'));
         setIsLoading(false);
       });

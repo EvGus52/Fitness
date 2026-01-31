@@ -60,6 +60,20 @@
     object-fit: contain;
 }
 
+@media (min-width: 768px) and (max-width: 1023px) {
+    .header {
+        padding: 50px 0;
+    }
+
+    .tagline {
+        display: none;
+    }
+
+    .user__name {
+        font-size: 20px;
+    }
+}
+
 @media (max-width: 767px) {
     .header {
         padding: 40px 0;

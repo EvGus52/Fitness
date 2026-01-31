@@ -7,6 +7,16 @@
   margin-bottom: 80px;
 }
 
+@media (min-width: 768px) and (max-width: 1023px) {
+  .scrollTopWrapper {
+    justify-content: center;
+  }
+
+  .scrollTopBtn {
+    margin-bottom: 50px;
+  }
+}
+
 @media (max-width: 767px) {
   .scrollTopWrapper {
     justify-content: flex-end;

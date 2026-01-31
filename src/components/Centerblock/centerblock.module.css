@@ -1,3 +1,11 @@
+.centerblock {
+  width: 100%;
+}
+
+.bubble {
+  flex-shrink: 0;
+}
+
 .titleBlock {
   margin-bottom: 50px;
   display: flex;
@@ -32,6 +40,20 @@
   text-align: center;
   padding: 40px;
   margin: 0;
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .bubble {
+    display: none;
+  }
+
+  .courses__grid {
+    grid-template-columns: repeat(8, 1fr);
+  }
+
+  .skeletonCardWrapper {
+    grid-column: span 4;
+  }
 }
 
 @media (max-width: 767px) {

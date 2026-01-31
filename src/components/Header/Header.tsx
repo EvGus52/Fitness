@@ -13,8 +13,6 @@ export default function Header() {
   const { user, isLoading } = useUser();
   const { openMenu } = useUserMenu();
   const userInfoRef = useRef<HTMLDivElement>(null);
-
-  // Извлекаем имя из email (часть до @)
   const userName = user?.email ? user.email.split('@')[0] : '';
 
   const handleUserInfoClick = (e: React.MouseEvent) => {

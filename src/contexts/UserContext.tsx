@@ -29,8 +29,7 @@ export function UserProvider({ children }: { children: ReactNode }) {
     try {
       const userData = await getCurrentUser();
       setUser(userData);
-    } catch (error) {
-      console.error('Ошибка при загрузке данных пользователя:', error);
+    } catch {
       setUser(null);
     } finally {
       setIsLoading(false);

@@ -25,7 +25,6 @@ export default function UserProfile({ onLogout }: UserProfileProps) {
     const [isLoadingCourses, setIsLoadingCourses] = useState(false);
     const [coursesError, setCoursesError] = useState<string | null>(null);
 
-    // Извлекаем имя из email (часть до @)
     const userName = user?.email ? user.email.split('@')[0] : '';
     const userEmail = user?.email || '';
 
@@ -45,36 +44,27 @@ export default function UserProfile({ onLogout }: UserProfileProps) {
         setIsLoadingCourses(true);
         setCoursesError(null);
         try {
-            // Загружаем все курсы
             const allCourses = await getCourses();
-
-            // Фильтруем только курсы пользователя
             const userCourseIds = user.selectedCourses;
             const filteredCourses = allCourses.filter((course) =>
                 userCourseIds.includes(course._id)
             );
 
-            // Преобразуем в формат для компонентов
             const transformedCourses = filteredCourses.map(transformCourse);
             setUserCourses(transformedCourses);
 
-            // Загружаем прогресс для каждого курса (totalWorkouts — из данных курса, не из API прогресса)
             const progressMap: Record<string, number> = {};
             for (const course of filteredCourses) {
                 try {
                     const progress = await getCourseProgress(course._id);
                     const totalWorkoutsInCourse = course.workouts?.length ?? 0;
                     progressMap[course._id] = calculateCourseProgress(progress, totalWorkoutsInCourse);
-                } catch (error) {
+                } catch {
                     progressMap[course._id] = 0;
-                    if (!isNetworkError(error)) {
-                        console.error(`Ошибка при загрузке прогресса для курса ${course._id}:`, error);
-                    }
                 }
             }
             setCoursesProgress(progressMap);
         } catch (error) {
-            console.error('Ошибка при загрузке курсов пользователя:', error);
             setCoursesError(getAxiosErrorMessage(error, 'Не удалось загрузить курсы'));
         } finally {
             setIsLoadingCourses(false);
@@ -83,7 +73,6 @@ export default function UserProfile({ onLogout }: UserProfileProps) {
 
     const handleCourseRemoved = () => {
         refreshUser();
-        // loadUserCourses вызовется из useEffect при обновлении user.selectedCourses
     };
 
     const handleProgressUpdated = () => {

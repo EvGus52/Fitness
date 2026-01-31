@@ -33,7 +33,6 @@ export const getCurrentUser = (): Promise<UserData> => {
       headers,
     })
     .then((res) => {
-      // Преобразуем ответ сервера в формат для приложения
       return {
         email: res.data.user.email,
         selectedCourses: res.data.user.selectedCourses || [],

@@ -1,4 +1,3 @@
-/* Разметка и размеры — из общих стилей карточки */
 .card {
   composes: card from '../../styles/courseCardBase.module.css';
   display: flex;
@@ -20,7 +19,6 @@
   composes: card__info from '../../styles/courseCardBase.module.css';
 }
 
-/* Скелетон заполняет родителя — размеры из класса, не из пропсов */
 .skeletonImage {
   display: block;
   width: 100%;

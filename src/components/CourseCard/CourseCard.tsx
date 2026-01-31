@@ -15,7 +15,6 @@ interface CourseCardProps {
     isAdded?: boolean;
     onCourseAdded?: () => void;
     onCourseRemoved?: () => void;
-    /** Для первой карточки на главной — улучшает LCP (loading="eager") */
     priority?: boolean;
 }
 
@@ -39,7 +38,6 @@ export function CourseCard({
         }
 
         if (isAdded) {
-            // Удаление курса
             try {
                 await deleteUserCourse(course.id);
                 toast.success('Курс успешно удален!');
@@ -50,7 +48,6 @@ export function CourseCard({
                 toast.error(getAxiosErrorMessage(error, 'Ошибка при удалении курса'));
             }
         } else {
-            // Добавление курса
             try {
                 await addUserCourse(course.id);
                 toast.success('Курс успешно добавлен!');
