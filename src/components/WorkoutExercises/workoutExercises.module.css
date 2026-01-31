@@ -1,0 +1,116 @@
+.card {
+  background: rgba(255, 255, 255, 1);
+  border-radius: 20px;
+  padding: 40px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.title {
+  font-size: 32px;
+  font-weight: 500;
+  line-height: 110%;
+  margin-bottom: 20px;
+}
+
+.emptyMessage {
+  font-size: 16px;
+  color: rgba(0, 0, 0, 0.6);
+  margin: 0;
+}
+
+.exerciseList {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px 60px;
+  margin-bottom: 40px;
+}
+
+.exerciseItem {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 110%;
+
+}
+
+.exerciseItem__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.exerciseItem__name {
+  margin: 0;
+  flex: 1;
+  min-width: 0;
+}
+
+.exerciseItem__percent {
+  flex-shrink: 0;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 110%;
+}
+
+.progress__bar {
+  width: 100%;
+  height: 6px;
+  border-radius: 50px;
+  background: rgba(247, 247, 247, 1);
+  overflow: hidden;
+}
+
+.progress__fill {
+  height: 100%;
+  border-radius: 50px;
+  background: rgba(0, 193, 255, 1);
+  transition: width 0.3s ease;
+}
+
+.submitBtn {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.submitBtn button {
+  width: auto;
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .card {
+    padding: 36px;
+  }
+
+  .title {
+    font-size: 28px;
+    font-weight: 500;
+    margin-bottom: 18px;
+  }
+
+  .exerciseList {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px 40px;
+  }
+}
+
+@media (max-width: 767px) {
+  .card {
+    padding: 30px;
+  }
+
+  .title {
+    font-weight: 400;
+  }
+
+  .exerciseList {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .submitBtn {
+    justify-content: center;
+  }
+}

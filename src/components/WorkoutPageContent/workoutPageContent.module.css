@@ -1,0 +1,68 @@
+.page {
+  padding-bottom: 40px;
+}
+
+.backToProfileWrapper {
+  margin-top: 40px;
+  display: flex;
+  justify-content: center;
+}
+
+.backToProfile {
+  display: inline-block;
+  text-decoration: none;
+  color: inherit;
+}
+
+.backToProfile__arrow {
+  display: inline-block;
+  vertical-align: middle;
+  line-height: 1;
+  position: relative;
+  top: -0.15em;
+  margin-right: 4px;
+}
+
+.title {
+  line-height: 110%;
+  font-size: 40px;
+  font-weight: 600;
+  color: #000;
+  margin: 0 0 40px 0;
+}
+
+.videoSection {
+  margin-bottom: 40px;
+}
+
+.exercisesSection {
+  margin-bottom: 40px;
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .title {
+    font-size: 32px;
+    font-weight: 600;
+    margin-bottom: 32px;
+  }
+
+  .videoSection {
+    margin-bottom: 32px;
+  }
+}
+
+@media (max-width: 767px) {
+  .title {
+    margin-bottom: 24px;
+    font-size: 24px;
+    font-weight: 500;
+  }
+
+  .videoSection {
+    margin-bottom: 24px;
+  }
+
+  .backToProfileWrapper {
+    justify-content: flex-end;
+  }
+}

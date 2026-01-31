@@ -1,0 +1,215 @@
+.aboutCourse {
+  width: 100%;
+}
+
+.topSection {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 60px;
+}
+
+.topContainer {
+  width: 100%;
+}
+
+.skillCardImage {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.skillCardImageDesktop {
+  display: block;
+}
+
+.skillCardImageMobile {
+  display: none;
+}
+
+.bottomSection {
+  width: 100%;
+}
+
+.sectionTitle {
+  font-size: 40px;
+  font-weight: 600;
+  margin-bottom: 40px;
+  text-align: left;
+  line-height: 110%;
+}
+
+.suitableFor {
+  margin-bottom: 60px;
+}
+
+.suitableForList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 17px;
+}
+
+.suitableForItem {
+  flex: 1 1 0;
+  min-width: 0;
+  background: linear-gradient(135deg, #151720 0%, #1e212e 100%);
+  border-radius: 28px;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  text-align: left;
+  gap: 25px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.itemNumber {
+  font-size: 75px;
+  font-weight: 500;
+  color: rgba(188, 236, 48, 1);
+  line-height: 135%;
+}
+
+.itemText {
+  color: rgba(255, 255, 255, 1);
+  font-size: 23px;
+  line-height: 110%;
+  min-width: 0;
+  word-wrap: break-word;
+}
+
+.directions {
+  margin-bottom: 102px;
+}
+
+.directionsTitle {
+  font-size: 40px;
+  font-weight: 600;
+  line-height: 110%;
+  margin-bottom: 40px;
+  text-align: left;
+}
+
+.directionsBar {
+  background-color: rgba(188, 236, 48, 1);
+  border-radius: 28px;
+  padding: 30px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 34px;
+}
+
+.directionItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.directionPlus {
+  flex-shrink: 0;
+  object-fit: contain;
+}
+
+.directionText {
+  font-size: 24px;
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .topSection {
+    margin-bottom: 50px;
+  }
+
+  .sectionTitle {
+    font-size: 32px;
+    font-weight: 600;
+    margin-bottom: 32px;
+  }
+
+  .suitableFor {
+    margin-bottom: 50px;
+  }
+
+  .itemText {
+    font-size: 18px;
+  }
+
+  .itemNumber {
+    font-size: 65px;
+  }
+
+  .directionsTitle {
+    font-size: 32px;
+    font-weight: 600;
+    margin-bottom: 32px;
+  }
+
+  .directions {
+    margin-bottom: 80px;
+  }
+
+  .directionsBar {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    padding: 24px;
+  }
+
+  .directionText {
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 767px) {
+  .topSection {
+    margin-bottom: 40px;
+  }
+
+  .skillCardImageDesktop {
+    display: none;
+  }
+
+  .skillCardImageMobile {
+    display: block;
+  }
+
+  .sectionTitle {
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 110%;
+    margin-bottom: 24px;
+  }
+
+  .suitableFor {
+    margin-bottom: 40px;
+  }
+
+  .suitableForList {
+    flex-direction: column;
+  }
+
+  .itemText {
+    font-size: 18px;
+    font-weight: 400;
+  }
+
+  .itemNumber {
+    font-size: 75px;
+    font-weight: 500;
+    line-height: 135%;
+  }
+
+  .directionsTitle {
+    font-size: 24px;
+    font-weight: 500;
+    margin-bottom: 24px;
+  }
+
+  .directions {
+    margin-bottom: 156px;
+  }
+
+  .directionsBar {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+}

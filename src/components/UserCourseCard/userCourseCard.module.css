@@ -1,0 +1,128 @@
+.card {
+  composes: card from '../../styles/courseCardBase.module.css';
+  display: flex;
+  flex-direction: column;
+}
+
+.card__image__wrapper {
+  composes: card__image__wrapper from '../../styles/courseCardBase.module.css';
+}
+
+.card__image {
+  composes: card__image from '../../styles/courseCardBase.module.css';
+}
+
+.card__remove {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  z-index: 10;
+}
+
+.card__remove:hover {
+  transform: scale(1.1);
+}
+
+.card__icon {
+  composes: card__duration__icon from '../../styles/courseCardBase.module.css';
+}
+
+.card__content {
+  composes: card__content from '../../styles/courseCardBase.module.css';
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  flex: 1;
+}
+
+.card__title {
+  composes: card__title from '../../styles/courseCardBase.module.css';
+}
+
+.card__info {
+  composes: card__info from '../../styles/courseCardBase.module.css';
+}
+
+.card__duration,
+.card__time {
+  composes: card__duration from '../../styles/courseCardBase.module.css';
+}
+
+.card__duration__icon,
+.card__time__icon {
+  composes: card__duration__icon from '../../styles/courseCardBase.module.css';
+}
+
+.card__difficulty {
+  display: contents;
+}
+
+.difficulty__indicator {
+  composes: difficulty__indicator from '../../styles/courseCardBase.module.css';
+}
+
+.difficulty__bars {
+  composes: difficulty__bars from '../../styles/courseCardBase.module.css';
+}
+
+.difficulty__bar {
+  composes: difficulty__bar from '../../styles/courseCardBase.module.css';
+}
+
+.difficulty__bar__active {
+  composes: difficulty__bar__active from '../../styles/courseCardBase.module.css';
+}
+
+.difficulty__label {
+  font-size: 16px;
+  color: rgba(32, 32, 32, 1);
+  font-weight: 400;
+}
+
+.card__progress {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.progress__bar {
+  width: 100%;
+  height: 6px;
+  border-radius: 50px;
+  background: rgba(247, 247, 247, 1);
+  overflow: hidden;
+}
+
+.progress__fill {
+  height: 100%;
+  border-radius: 50px;
+  background: rgba(0, 193, 255, 1);
+  transition: width 0.3s ease;
+}
+
+.card__actionBtn {
+  margin-top: 20px;
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .card__title {
+    font-size: 28px;
+    font-weight: 500;
+    line-height: 110%;
+  }
+}
+
+@media (max-width: 767px) {
+  .card__title {
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 110%;
+  }
+}

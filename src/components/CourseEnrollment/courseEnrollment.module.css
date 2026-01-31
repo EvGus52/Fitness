@@ -1,0 +1,222 @@
+.enrollment {
+  width: 100%;
+  position: relative;
+  overflow: visible;
+  margin-bottom: 60px;
+}
+
+.enrollmentInner {
+  position: relative;
+  width: 100%;
+}
+
+.content {
+  display: flex;
+  align-items: flex-start;
+  position: relative;
+  z-index: 2;
+  background-color: #fff;
+  border-radius: 30px;
+  padding: 40px;
+  box-shadow: 0 30px 120px rgba(0, 0, 0, 0.35);
+  overflow: visible;
+}
+
+.textBlock {
+  display: flex;
+  flex-direction: column;
+  max-width: 440px;
+  gap: 28px;
+
+}
+
+.title {
+  max-width: 400px;
+  font-size: 60px;
+  font-weight: 500;
+  line-height: 100%;
+}
+
+.benefitsList {
+  list-style: disc;
+  padding-left: 36px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.benefitItem {
+  font-size: 24px;
+  opacity: 0.6;
+}
+
+
+
+.imageBlock {
+  position: absolute;
+  right: 40px;
+  top: -110px;
+  height: 588px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 3;
+  clip-path: inset(-100% -100% 0 -100%);
+}
+
+.lineWrapper {
+  position: absolute;
+  z-index: 3;
+  top: 240px;
+  left: -136px;
+
+}
+
+.line {
+  object-fit: contain;
+  position: absolute;
+}
+
+.lineDesktop {
+  display: block;
+}
+
+.lineMobile {
+  display: none;
+}
+
+.menWrapper {
+  position: relative;
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.men {
+  object-fit: contain;
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .enrollment {
+    margin-bottom: 50px;
+
+  }
+
+  .content {
+    padding: 36px;
+  }
+
+  .title {
+    font-size: 44px;
+    font-weight: 500;
+    line-height: 100%;
+  }
+
+  .benefitItem {
+    font-size: 20px;
+  }
+
+  .imageBlock {
+    right: 40px;
+    top: -110px;
+    height: 347px;
+
+  }
+
+  .lineWrapper {
+    top: 114px;
+    left: -78px;
+  }
+
+  .lineDesktop {
+    display: none;
+  }
+
+  .lineMobile {
+    display: block;
+  }
+
+  .line {
+    width: 430px;
+    height: 250px;
+    object-fit: contain;
+  }
+
+  .menWrapper {
+    top: 0px;
+    right: 50px;
+    height: 347px;
+  }
+
+  .men {
+    width: 334px;
+    height: 347px;
+    object-fit: contain;
+  }
+}
+
+@media (max-width: 767px) {
+  .enrollment {
+    margin-bottom: 30px;
+
+  }
+
+  .content {
+    padding: 30px;
+  }
+
+  .title {
+    font-size: 32px;
+    font-weight: 500;
+    line-height: 110%;
+  }
+
+  .benefitItem {
+    font-size: 18px;
+    font-weight: 400;
+  }
+
+  .enrollmentBtn {
+    font-size: 16px;
+    font-weight: 400;
+  }
+
+  .imageBlock {
+    top: -260px;
+    right: -90px;
+    height: 347px;
+    clip-path: none;
+    z-index: 1;
+  }
+
+  .lineWrapper {
+    top: 38%;
+    left: -70%;
+
+  }
+
+  .lineDesktop {
+    display: none;
+  }
+
+  .lineMobile {
+    display: block;
+  }
+
+  .line {
+    width: 430px;
+    height: 250px;
+    object-fit: contain;
+  }
+
+  .menWrapper {
+    height: 347px;
+  }
+
+  .men {
+    width: 334px;
+    height: 347px;
+    object-fit: contain;
+  }
+}

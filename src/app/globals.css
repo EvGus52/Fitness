@@ -1,0 +1,128 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-roboto), Arial;
+  color: rgba(0, 0, 0, 1);
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 110%;
+  background-color: #fafafa;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0;
+}
+
+a,
+input,
+button {
+  font-family: var(--font-roboto), Arial;
+}
+
+a {
+  text-decoration: none;
+}
+
+.center {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.btn {
+  border-radius: 46px;
+  font-size: 18px;
+  transition: all 0.3s ease;
+  padding: 16px 26px;
+  border: none;
+  background: rgba(188, 236, 48, 1);
+  color: rgba(0, 0, 0, 1);
+  cursor: pointer;
+  line-height: normal;
+}
+
+.btn:hover:not(:disabled) {
+  background: rgba(198, 255, 0, 1);
+  color: rgba(0, 0, 0, 1);
+}
+
+.btn:active:not(:disabled) {
+  background: rgba(0, 0, 0, 1);
+  color: rgba(255, 255, 255, 1);
+}
+
+.btn:disabled {
+  background: rgba(247, 247, 247, 1);
+  color: rgba(153, 153, 153, 1);
+  cursor: not-allowed;
+}
+
+.btn-secondary {
+  border-radius: 46px;
+  font-size: 18px;
+  transition: all 0.3s ease;
+  padding: 16px 26px;
+  border: 1px solid rgba(0, 0, 0, 1);
+  background: transparent;
+  color: rgba(0, 0, 0, 1);
+  cursor: pointer;
+  line-height: normal;
+}
+
+.btn-secondary:hover:not(:disabled) {
+  border: 1px solid rgba(0, 0, 0, 1);
+  color: rgba(0, 0, 0, 1);
+  background: rgba(247, 247, 247, 1);
+}
+
+.btn-secondary:active:not(:disabled) {
+  border: 1px solid rgba(0, 0, 0, 1);
+  color: rgba(0, 0, 0, 1);
+  background: rgba(233, 236, 237, 1);
+}
+
+.btn-secondary:disabled {
+  border: 1px solid rgba(153, 153, 153, 1);
+  color: rgba(153, 153, 153, 1);
+  cursor: not-allowed;
+}
+
+.btn-full {
+  width: 100%;
+}
+
+.btn-padding-sm {
+  padding: 12px 0;
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .Toastify__toast-container {
+    width: calc(100vw - 48px);
+    max-width: 420px;
+  }
+
+  .Toastify__toast {
+    width: 100%;
+  }
+}
+
+@media (max-width: 767px) {
+  .Toastify__toast-container {
+    width: calc(100vw - 40px);
+    max-width: 360px;
+  }
+
+  .Toastify__toast {
+    width: 100%;
+  }
+}

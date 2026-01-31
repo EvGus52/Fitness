@@ -1,0 +1,148 @@
+.profileTitle {
+  font-size: 40px;
+  font-weight: 600;
+  margin-bottom: 40px;
+}
+
+.profileCard {
+  background-color: #fff;
+  border-radius: 20px;
+  padding: 30px;
+  display: flex;
+  align-items: center;
+  gap: 33px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+  max-width: 1200px;
+  margin-bottom: 60px;
+}
+
+.avatarWrapper {
+  flex-shrink: 0;
+  width: 197px;
+  height: 197px;
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  background: rgba(217, 217, 217, 1);
+}
+
+.avatar {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.userInfo {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.userInfoBlock {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 30px;
+  margin-bottom: 44px;
+}
+
+.userName {
+  font-size: 32px;
+  font-weight: 500;
+}
+
+
+.logoutButton {
+  width: 192px;
+}
+
+.coursesTitle {
+  font-size: 40px;
+  font-weight: 600;
+  margin-bottom: 40px;
+}
+
+.courses__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+  margin-bottom: 40px;
+}
+
+.errorMessage {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 40px;
+  margin: 0;
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .profileTitle {
+    font-size: 32px;
+    font-weight: 600;
+    margin-bottom: 32px;
+  }
+
+  .profileCard {
+    padding: 28px;
+    gap: 28px;
+  }
+
+  .avatarWrapper {
+    width: 170px;
+    height: 170px;
+  }
+
+  .userName {
+    font-size: 28px;
+    font-weight: 500;
+  }
+
+  .coursesTitle {
+    font-size: 32px;
+    font-weight: 600;
+    margin-bottom: 32px;
+  }
+
+  .courses__grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px;
+  }
+}
+
+@media (max-width: 767px) {
+  .profileTitle {
+    font-size: 24px;
+    font-weight: 500;
+  }
+
+  .profileCard {
+    flex-direction: column;
+  }
+
+  .avatarWrapper {
+    width: 141px;
+    height: 141px;
+  }
+
+  .userInfoBlock {
+    gap: 20px;
+    align-items: flex-start;
+    margin-bottom: 20px;
+  }
+
+  .userName {
+    font-size: 24px;
+    font-weight: 500;
+  }
+
+  .userLogin {
+    font-size: 16px;
+    font-weight: 400;
+  }
+
+  .courses__grid {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
